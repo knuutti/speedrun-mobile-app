@@ -14,5 +14,6 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("moi veeti tervetuoloa ryhmään");
         System.out.println("Kiitos ryhmään pääsystä!");
         System.out.println("mis eettu?");
+        System.out.println("differentiaalilaskennassa");
     }
 }
