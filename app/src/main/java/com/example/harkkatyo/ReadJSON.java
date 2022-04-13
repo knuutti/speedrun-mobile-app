@@ -60,10 +60,8 @@ public class ReadJSON {
         StringBuilder searchUrl = new StringBuilder("https://www.speedrun.com/api/v1/games?name=");
 
         // Replaces spaces with %20 for the search
-        String[] searchWordsArray = searchWords.split(" ");
-        for (String s : searchWordsArray) {
-            searchUrl.append(s).append("%20");
-        }
+        String newSearchWords = searchWords.replace(" ", "%20");
+        searchUrl.append(newSearchWords);
 
         String searchResult = JsonToString(searchUrl.toString());
 

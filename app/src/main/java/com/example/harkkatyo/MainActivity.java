@@ -1,16 +1,19 @@
 package com.example.harkkatyo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Switch;
 
 import java.util.ArrayList;
 
@@ -19,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
     ReadJSON json = ReadJSON.getInstance();
 
     private EditText etGameSearch;
-    protected ListView lvGameList;
+    private ListView lvGameList;
+    private Switch sUnofficialReleases;
 
     private ArrayList<Game> gameList;
 
@@ -33,11 +37,18 @@ public class MainActivity extends AppCompatActivity {
 
         etGameSearch = findViewById(R.id.etGameSearch);
         lvGameList = findViewById(R.id.lvGameList);
+        sUnofficialReleases = findViewById(R.id.sUnofficialReleases);
+
     }
 
     // Method for searching games based on user input
     public void searchGames(View v) {
-        gameList = json.gameSearch(etGameSearch.getText().toString());
+        if (sUnofficialReleases.isChecked() == false) {
+            gameList = json.gameSearch(etGameSearch.getText().toString() + "&romhack=false");
+        }
+        else {
+            gameList = json.gameSearch(etGameSearch.getText().toString());
+        }
         setGameList();
     }
 
@@ -66,6 +77,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return super.dispatchTouchEvent( event );
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
 }
