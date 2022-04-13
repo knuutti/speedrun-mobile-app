@@ -12,8 +12,21 @@ public class Game {
     private ArrayList<Category> categories;
     private ArrayList<Level> levels;
 
+    // CONSTRUCTORS
+
     public Game(String gameId) {
         this.gameId = gameId;
+    }
+
+    public Game(String gameId, String gameName, String imageUrl) {
+        this.gameId = gameId;
+        this.gameName = gameName;
+        this.imageUrl = imageUrl;
+    }
+
+    @Override
+    public String toString(){
+        return gameName;
     }
 
     // GETTERS AND SETTERS

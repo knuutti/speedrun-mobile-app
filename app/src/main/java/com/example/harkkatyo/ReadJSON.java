@@ -54,6 +54,48 @@ public class ReadJSON {
         return response;
     }
 
+    // Function for searching games by the search words user gives
+    public ArrayList<Game> gameSearch(String searchWords) {
+        ArrayList<Game> gameList = new ArrayList<>();
+        StringBuilder searchUrl = new StringBuilder("https://www.speedrun.com/api/v1/games?name=");
+
+        // Replaces spaces with %20 for the search
+        String[] searchWordsArray = searchWords.split(" ");
+        for (String s : searchWordsArray) {
+            searchUrl.append(s).append("%20");
+        }
+
+        String searchResult = JsonToString(searchUrl.toString());
+
+        if (searchResult != null) {
+            try {
+                JSONParser parser = new JSONParser();
+                JSONObject obj = (JSONObject) parser.parse(searchResult);
+                JSONArray data = (JSONArray) obj.get("data");
+
+                // Each game of the search result
+                for (int i = 0 ; i < data.size() ; i++) {
+                    JSONObject gameInstance = (JSONObject) data.get(i);
+                    String gameId = gameInstance.get("id").toString();
+                    JSONObject names = (JSONObject) gameInstance.get("names");
+                    String gameName = names.get("international").toString();
+                    JSONObject assets = (JSONObject) gameInstance.get("assets");
+                    JSONObject coverImage = (JSONObject) assets.get("cover-tiny");
+                    String imageUrl = coverImage.get("uri").toString();
+
+                    Game game = new Game(gameId, gameName, imageUrl);
+
+                    gameList.add(game);
+                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return gameList;
+    }
+
     public Leaderboard getLeaderboardData(Game game, Category category, int start, int end){
 
         String leaderboardJSON = JsonToString("https://www.speedrun.com/api/v1/leaderboards/" + game.getGameId() + "/category/" + category.getCategoryId());
