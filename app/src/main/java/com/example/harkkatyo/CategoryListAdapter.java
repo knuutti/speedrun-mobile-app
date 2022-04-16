@@ -15,17 +15,16 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class GameListAdapter extends ArrayAdapter<Game> {
+public class CategoryListAdapter extends ArrayAdapter<Category> {
 
     private final Context mContext;
     private final int mResource;
 
     private static class ViewHolder {
-        ImageView ivCoverImage;
-        TextView tvGameName;
+        TextView tvCategoryName;
     }
 
-    public GameListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Game> objects) {
+    public CategoryListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Category> objects) {
         super(context, resource, objects);
         this.mContext = context;
         this.mResource = resource;
@@ -35,33 +34,26 @@ public class GameListAdapter extends ArrayAdapter<Game> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        String gameName = getItem(position).getGameName();
-        String imageUrl = getItem(position).getImageUrl();
+        String categoryName = getItem(position).getCategoryName();
 
-        ViewHolder holder;
+        CategoryListAdapter.ViewHolder holder;
 
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(mResource, parent, false);
 
-            holder = new ViewHolder();
-            holder.tvGameName = (TextView) convertView.findViewById(R.id.tv_category_name_listview);
-            holder.ivCoverImage = (ImageView) convertView.findViewById(R.id.ivCoverImage);
+            holder = new CategoryListAdapter.ViewHolder();
+            holder.tvCategoryName = (TextView) convertView.findViewById(R.id.tv_category_name_listview);
 
             convertView.setTag(holder);
 
         }
         else {
-            holder = (ViewHolder) convertView.getTag();
+            holder = (CategoryListAdapter.ViewHolder) convertView.getTag();
         }
 
         // Setting up correct name for each game
-        holder.tvGameName.setText(gameName);
-
-        Glide.with(mContext)
-                .load(imageUrl)
-                .override(300, 200)
-                .into(holder.ivCoverImage);
+        holder.tvCategoryName.setText(categoryName);
 
         return convertView;
     }

@@ -5,14 +5,6 @@
     android:orientation="horizontal"
     android:weightSum="100">
 
-    <ImageView
-        android:id="@+id/ivCoverImage"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_weight="80"
-        android:gravity="center"
-        android:textAlignment="center" />
-
     <TextView
         android:id="@+id/tv_category_name_listview"
         android:layout_width="match_parent"
@@ -20,10 +12,10 @@
         android:layout_weight="30"
         android:fontFamily="@font/saicond"
         android:gravity="center|left"
-        android:text="Game"
+        android:text="Category"
         android:textAlignment="gravity"
         android:textColor="#FFFFFF"
-        android:translationX="10pt" />
+        android:translationX="0pt" />
 
 
 </LinearLayout>

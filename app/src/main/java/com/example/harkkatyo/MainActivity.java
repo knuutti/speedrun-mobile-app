@@ -4,13 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -38,6 +41,15 @@ public class MainActivity extends AppCompatActivity {
         etGameSearch = findViewById(R.id.etGameSearch);
         lvGameList = findViewById(R.id.lvGameList);
         sUnofficialReleases = findViewById(R.id.sUnofficialReleases);
+
+        lvGameList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MainActivity.this, GamePage.class);
+                intent.putExtra("gameId", gameList.get(i).getGameId());
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -83,6 +95,20 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home:
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.login:
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
 }

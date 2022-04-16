@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ReadJSON {
 
@@ -314,7 +315,7 @@ public class ReadJSON {
                 for (int i = 0; i < data.size(); i++) {
                     JSONObject categoryObj = (JSONObject) data.get(i);
                     String levelId = categoryObj.get("id").toString();
-                    String levelName = categoryObj.get("name").toString();
+                    String levelName = Objects.requireNonNull(categoryObj.get("name")).toString();
                     levels.add(new Level(levelId, levelName));
                 }
 
@@ -325,32 +326,61 @@ public class ReadJSON {
         return levels;
     }
 
-    public String[] getGameData(String game_id) {
-        String gameJSON = getGameDataJSON(game_id);
-        String[] data_array = new String[3];
+    // Function for getting required date for a game based on it's ID
+    public Game getGameData(String gameId) {
+        String gameJSON = JsonToString("https://www.speedrun.com/api/v1/games/" + gameId + "?embed=categories,levels");
+
+        String gameName = null;
+        String imageUrl = null;
+        String releaseYear = null;
+        ArrayList<Category> categoryArrayList = new ArrayList<>();
+        ArrayList<Level> levelArrayList = new ArrayList<>();
 
         if (gameJSON != null) {
             try {
                 JSONParser parser = new JSONParser();
                 JSONObject obj = (JSONObject) parser.parse(gameJSON);
                 JSONObject data = (JSONObject) obj.get("data");
+                JSONObject categories = (JSONObject) data.get("categories");
+                JSONObject levels = (JSONObject) data.get("levels");
+
+                JSONArray categoryData = (JSONArray) categories.get("data");
+
+                for (int i = 0; i < categoryData.size(); i++) {
+                    JSONObject categoryObj = (JSONObject) categoryData.get(i);
+                    String categoryId = categoryObj.get("id").toString();
+                    String categoryName = categoryObj.get("name").toString();
+
+                    // Condition for eliminating level categories
+                    if (categoryObj.get("type").toString().compareTo("per-level") != 0) {
+                        categoryArrayList.add(new Category(categoryId, categoryName));
+                    }
+                }
+
+                JSONArray levelData = (JSONArray) levels.get("data");
+
+                for (int i = 0; i < levelData.size(); i++) {
+                    JSONObject categoryObj = (JSONObject) levelData.get(i);
+                    String levelId = categoryObj.get("id").toString();
+                    String levelName = Objects.requireNonNull(categoryObj.get("name")).toString();
+                    levelArrayList.add(new Level(levelId, levelName));
+                }
+
                 JSONObject names = (JSONObject) data.get("names");
                 JSONObject assets = (JSONObject) data.get("assets");
                 JSONObject cover = (JSONObject) assets.get("cover-medium");
-                data_array[0] = names.get("international").toString();
-                data_array[1] = cover.get("uri").toString();
-                data_array[2] = data.get("released").toString();
+                gameName = names.get("international").toString();
+                imageUrl = cover.get("uri").toString();
+                releaseYear = data.get("released").toString();
 
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
-        return data_array;
-    }
 
-    private String getGameDataJSON(String game_id){
-        String response = JsonToString("https://www.speedrun.com/api/v1/games/" + game_id);
-        return response;
+        Game game = new Game(gameId, gameName, imageUrl, releaseYear, categoryArrayList, levelArrayList);
+
+        return game;
     }
 
 }

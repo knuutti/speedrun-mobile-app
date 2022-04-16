@@ -24,6 +24,15 @@ public class Game {
         this.imageUrl = imageUrl;
     }
 
+    public Game(String gameId, String gameName, String imageUrl, String releaseYear, ArrayList categories, ArrayList levels) {
+        this.gameId = gameId;
+        this.gameName = gameName;
+        this.imageUrl = imageUrl;
+        this.releaseYear = releaseYear;
+        this.categories = categories;
+        this.levels = levels;
+    }
+
     @Override
     public String toString(){
         return gameName;
