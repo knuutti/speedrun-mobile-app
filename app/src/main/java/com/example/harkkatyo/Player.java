@@ -21,7 +21,7 @@ public class Player {
 
     public Player(String playerId, String playerName, String country, String colorStart, String colorEnd) {
         this.playerId = playerId;
-        this.playerName = playerId;
+        this.playerName = playerName;
         this.country = country;
         this.colorStart = colorStart;
         this.colorEnd = colorEnd;

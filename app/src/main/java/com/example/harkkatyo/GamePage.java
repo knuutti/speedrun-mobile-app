@@ -6,6 +6,7 @@ import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,9 +42,8 @@ public class GamePage extends AppCompatActivity {
 
         ivCoverImage = findViewById(R.id.iv_cover_image_game_page);
         tvGameName = findViewById(R.id.tv_game_name_game_page);
-        lvCategoryList = findViewById(R.id.lv_category_list_game_page);
-        lvLevelList = findViewById(R.id.lv_level_list_game_page);
 
+        setListViews();
         setTypeTabs();
 
         tvGameName.setText(game.getGameName());
@@ -51,6 +51,12 @@ public class GamePage extends AppCompatActivity {
                 .load(game.getImageUrl())
                 .override(300, 200)
                 .into(ivCoverImage);
+
+    }
+
+    private void setListViews(){
+        lvCategoryList = findViewById(R.id.lv_category_list_game_page);
+        lvLevelList = findViewById(R.id.lv_level_list_game_page);
 
         // Updates categories to the category list
         if (game.getCategories() != null) {
@@ -64,14 +70,36 @@ public class GamePage extends AppCompatActivity {
             lvLevelList.setAdapter(adapter);
         }
 
+        lvCategoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(GamePage.this, LeaderboardPage.class);
+                intent.putExtra("uri", game.getGameId() + "/category/" + game.getCategories().get(i).getCategoryId());
+                startActivity(intent);
+            }
+        });
+
+        lvLevelList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(GamePage.this, LeaderboardPage.class);
+                intent.putExtra("uri", game.getGameId()+ "/level/"+ game.getLevels().get(i).getLevelId() + "/" + game.getLevelCategories().get(0).getCategoryId());
+
+                System.out.println(game.getLevelCategories().get(0).getCategoryName());
+
+                startActivity(intent);
+            }
+        });
     }
 
+    // Setting up the action bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    // Setting up action bar functionality
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -1,37 +1,73 @@
 package com.example.harkkatyo;
 
+import java.util.regex.Pattern;
+
 public class Run {
 
     private String runId;
-    private String realTimeString;
-    private String inGameTimeString;
+    private String time;
     private String date;
     private String placement;
 
-    private int realTimeInteger;
-    private int inGameTimeInteger;
-
     private Player player;
-    private Game game;
 
-    public Run(String placement, String runId, String gameId, String playerId, String playerName, String date, String realTime, String inGameTime) {
+    public Run(String placement, String runId, String time, String date, Player player) {
         this.placement = placement;
         this.runId = runId;
-        this.game = new Game(gameId);
-        this.player = new Player(playerId, playerName);
-        this.realTimeString = realTime;
-        this.inGameTimeString = inGameTime;
+        this.date = date;
+        this.player = player;
+        this.time = getTimeFormat(time);
+    }
+
+    // METHODS
+
+    public String getTimeFormat(String timeString) {
+        String time = null;
+        try {
+            String[] times = timeString.split(Pattern.quote("."));
+
+            int timeInt = Integer.parseInt(times[0]);
+            int h = timeInt/3600;
+            int m = (timeInt - (3600*h)) / 60;
+            int s = timeInt - 3600*h - 60*m;
+
+            String minutes = "" + m;
+            String seconds = "" + s;
+            String hours = "" + h;
+            String ms = "";
+
+            if (times.length == 2) {
+                ms = times[1];
+            }
+
+            if (m < 10 && hours.compareTo("0") != 0) {
+                minutes = "0" + minutes;
+            }
+            if (s < 10) {
+                seconds = "0" + seconds;
+            }
+
+            if (ms.compareTo("") != 0) {
+                if (ms.length() == 1) {
+                    ms = ms + "0";
+                }
+                ms = ms + "ms";
+            }
+
+            if (hours.compareTo("0") != 0) {
+                time = hours + "h " + minutes + "m " + seconds + "s " + ms;
+            }
+            else {
+                time = minutes + "m " + seconds + "s " + ms;
+            }
+        }
+        catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return time;
     }
 
     // GETTERS AND SETTERS
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
 
     public String getRunId() {
         return runId;
@@ -57,36 +93,12 @@ public class Run {
         this.player = player;
     }
 
-    public String getRealTimeString() {
-        return realTimeString;
+    public String getTime() {
+        return time;
     }
 
-    public void setRealTimeString(String realTimeString) {
-        this.realTimeString = realTimeString;
-    }
-
-    public String getInGameTimeString() {
-        return inGameTimeString;
-    }
-
-    public void setInGameTimeString(String inGameTimeString) {
-        this.inGameTimeString = inGameTimeString;
-    }
-
-    public int getRealTimeInteger() {
-        return realTimeInteger;
-    }
-
-    public void setRealTimeInteger(int realTimeInteger) {
-        this.realTimeInteger = realTimeInteger;
-    }
-
-    public int getInGameTimeInteger() {
-        return inGameTimeInteger;
-    }
-
-    public void setInGameTimeInteger(int inGameTimeInteger) {
-        this.inGameTimeInteger = inGameTimeInteger;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getPlacement() {

@@ -11,6 +11,7 @@ public class Game {
 
     private ArrayList<Category> categories;
     private ArrayList<Level> levels;
+    private ArrayList<Category> levelCategories;
 
     // CONSTRUCTORS
 
@@ -24,13 +25,14 @@ public class Game {
         this.imageUrl = imageUrl;
     }
 
-    public Game(String gameId, String gameName, String imageUrl, String releaseYear, ArrayList categories, ArrayList levels) {
+    public Game(String gameId, String gameName, String imageUrl, String releaseYear, ArrayList categories, ArrayList levels, ArrayList levelCategories) {
         this.gameId = gameId;
         this.gameName = gameName;
         this.imageUrl = imageUrl;
         this.releaseYear = releaseYear;
         this.categories = categories;
         this.levels = levels;
+        this.levelCategories = levelCategories;
     }
 
     @Override
@@ -86,5 +88,13 @@ public class Game {
 
     public void setLevels(ArrayList<Level> levels) {
         this.levels = levels;
+    }
+
+    public ArrayList<Category> getLevelCategories() {
+        return levelCategories;
+    }
+
+    public void setLevelCategories(ArrayList<Category> levelCategories) {
+        this.levelCategories = levelCategories;
     }
 }

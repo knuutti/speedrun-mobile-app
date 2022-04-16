@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -95,33 +96,77 @@ public class ReadJSON {
         return gameList;
     }
 
-    public Leaderboard getLeaderboardData(Game game, Category category, int start, int end){
+    public ArrayList<Run> getLeaderboardData(String uri){
 
-        String leaderboardJSON = JsonToString("https://www.speedrun.com/api/v1/leaderboards/" + game.getGameId() + "/category/" + category.getCategoryId());
+        String leaderboardJSON = JsonToString("https://www.speedrun.com/api/v1/leaderboards/" + uri + "?embed=players,game");
 
-        Leaderboard leaderboard = Leaderboard.getInstance();
-        leaderboard.clear();
-
-        String place;
-        String runId;
+        ArrayList<Run> leaderboard = new ArrayList<>();
 
         if (leaderboardJSON != null) {
             try {
                 JSONParser parser = new JSONParser();
                 JSONObject obj = (JSONObject) parser.parse(leaderboardJSON);
                 JSONObject data = (JSONObject) obj.get("data");
-                JSONArray runs = (JSONArray) data.get("runs");
+                JSONObject players = (JSONObject) data.get("players");
 
-                for (int i = start; i<(runs.size()) && i < end; i++) {
-                    JSONObject runObject = (JSONObject) runs.get(i);
-                    JSONObject runJson = (JSONObject) runObject.get("run");
+                JSONArray runList = (JSONArray) data.get("runs");
+                JSONArray playerList =(JSONArray) players.get("data");
 
-                    place = runObject.get("place").toString();
-                    runId = runJson.get("id").toString();
+                // Loop for going through each run on the leaderboard
+                for (int i = 0 ; i < runList.size() ; i++) {
+                    JSONObject runObject = (JSONObject) runList.get(i);
+                    JSONObject playerObject = (JSONObject) playerList.get(i);
 
-                    Run run = getRunData(place, runId);
+                    // Run related data
+                    JSONObject runData = (JSONObject) runObject.get("run");
+                    JSONObject times = (JSONObject) runData.get("times");
 
-                    leaderboard.addRun(run);
+                    String place = runObject.get("place").toString();
+                    String runId = runData.get("id").toString();
+                    String date = runData.get("date").toString();
+                    String time = times.get("primary_t").toString();
+
+                    // Player related data
+
+                    String colorFrom = "#FFFFFF";
+                    String colorTo = "#FFFFFF";
+                    String flag = "default";
+                    String playerName = null;
+                    String playerId = null;
+
+                    // Condition for separating registered users from guests
+                    if (playerObject.get("rel").toString().compareTo("user") == 0) {
+                        JSONObject names = (JSONObject) playerObject.get("names");
+                        JSONObject nameStyle = (JSONObject) playerObject.get("name-style");
+
+                        if (nameStyle.get("style").toString().compareTo("gradient") == 0) {
+                            JSONObject colorF = (JSONObject) nameStyle.get("color-from");
+                            JSONObject colorT = (JSONObject) nameStyle.get("color-to");
+                            colorFrom = colorF.get("dark").toString();
+                            colorTo = colorT.get("dark").toString();
+                        } else if (nameStyle.get("style").toString().compareTo("solid") == 0) {
+                            JSONObject colorObj = (JSONObject) nameStyle.get("color");
+                            colorFrom = colorObj.get("dark").toString();
+                            colorTo = colorFrom;
+                        }
+
+                        JSONObject location = (JSONObject) playerObject.get("location");
+                        if (location != null) {
+                            JSONObject country = (JSONObject) location.get("country");
+                            flag = country.get("code").toString();
+                        }
+
+                        playerName = names.get("international").toString();
+                        playerId = playerObject.get("id").toString();
+
+                    }
+                    else {
+                        playerName = playerObject.get("name").toString();
+                    }
+
+                    Run run = new Run(place, runId, time, date, new Player(playerId, playerName, flag, colorFrom, colorTo));
+                    System.out.println(uri);
+                    leaderboard.add(run);
                 }
 
             } catch (ParseException e) {
@@ -130,200 +175,6 @@ public class ReadJSON {
         }
 
         return leaderboard;
-    }
-
-    public Leaderboard getLevelLeaderboardData(Game game, Level level, Category category, int start, int end){
-
-        String leaderboardJSON = JsonToString("https://www.speedrun.com/api/v1/leaderboards/" + game.getGameId() + "/level/" + level.getLevelId() + "/" + category.getCategoryId());
-
-        Leaderboard leaderboard = Leaderboard.getInstance();
-        leaderboard.clear();
-
-        String place;
-        String runId;
-
-        if (leaderboardJSON != null) {
-            try {
-                JSONParser parser = new JSONParser();
-                JSONObject obj = (JSONObject) parser.parse(leaderboardJSON);
-                JSONObject data = (JSONObject) obj.get("data");
-                JSONArray runs = (JSONArray) data.get("runs");
-
-                for (int i = start; i<(runs.size()) && i < end; i++) {
-                    JSONObject runObject = (JSONObject) runs.get(i);
-                    JSONObject runJson = (JSONObject) runObject.get("run");
-
-                    place = runObject.get("place").toString();
-                    runId = runJson.get("id").toString();
-
-                    Run run = getRunData(place, runId);
-
-                    leaderboard.addRun(run);
-                }
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return leaderboard;
-    }
-
-    // Method for creating a Run object from run id
-    public Run getRunData(String place, String runId) {
-
-        String runJson = JsonToString("https://www.speedrun.com/api/v1/runs/" + runId);
-
-        String playerId = null;
-        String gameId = null;
-        String date = null;
-        String realtime = null;
-        String ingame = null;
-        String playerName = null;
-
-        if (runJson != null) {
-            try {
-                JSONParser parser = new JSONParser();
-
-                JSONObject obj = (JSONObject) parser.parse(runJson);
-                JSONObject data = (JSONObject) obj.get("data");
-                JSONObject times = (JSONObject) data.get("times");
-                JSONArray players = (JSONArray) data.get("players");
-                JSONObject playerObject = (JSONObject) players.get(0);
-
-                gameId = data.get("game").toString();
-                date = data.get("date").toString();
-                realtime = times.get("realtime_t").toString();
-                if (realtime.compareTo("0") == 0) {
-                    ingame = times.get("ingame_t").toString();
-                }
-
-                // Checks if the runner has an account
-                if (playerObject.get("rel").toString().compareTo("user") == 0) {
-                    playerId = playerObject.get("id").toString();
-                }
-                else {
-                    playerName = playerObject.get("name").toString();
-                }
-
-            } catch (ParseException | NullPointerException e) {
-                e.printStackTrace();
-            }
-        }
-        Run run = new Run(place, runId, gameId, playerId, playerName, date, realtime, ingame);
-        return run;
-    }
-
-    // Method for creating a Player object from player id
-    public Player getPlayerData(String playerId){
-
-        String playerJSON = JsonToString("https://www.speedrun.com/api/v1/users/" + playerId);
-
-        String playerName = "Player";
-        String country = "default";
-        String colorStart = "#FFFFFF";
-        String colorEnd = "#FFFFFF";
-
-        if (playerJSON != null) {
-            try {
-                JSONParser parser = new JSONParser();
-                JSONObject obj = (JSONObject) parser.parse(playerJSON);
-                JSONObject data = (JSONObject) obj.get("data");
-                JSONObject names = (JSONObject) data.get("names");
-                JSONObject nameStyle = (JSONObject) data.get("name-style");
-                JSONObject colorFrom = (JSONObject) nameStyle.get("color-from");
-                JSONObject colorTo = (JSONObject) nameStyle.get("color-to");
-                JSONObject location = (JSONObject) data.get("location");
-
-                playerName = names.get("international").toString();
-                colorEnd = colorTo.get("dark").toString();
-                colorStart = colorFrom.get("dark").toString();
-
-                if (location != null) {
-                    JSONObject countryJson = (JSONObject) location.get("country");
-                    country = countryJson.get("code").toString();
-                }
-                else {
-                    country = "default";
-                }
-
-            } catch (ParseException | NullPointerException e) {
-                e.printStackTrace();
-            }
-        }
-
-        Player player = new Player(playerId, playerName, country, colorStart, colorEnd);
-
-        return player;
-    }
-
-    public ArrayList getCategoryData(String gameId) {
-        String categoryJSON = JsonToString("https://www.speedrun.com/api/v1/games/" + gameId + "/categories");
-        ArrayList<Category> categories = new ArrayList<>();
-        if (categoryJSON != null) {
-            try {
-                JSONParser parser = new JSONParser();
-                JSONObject obj = (JSONObject) parser.parse(categoryJSON);
-                JSONArray data = (JSONArray) obj.get("data");
-
-                for (int i = 0; i < data.size(); i++) {
-                    JSONObject categoryObj = (JSONObject) data.get(i);
-                    String categoryId = categoryObj.get("id").toString();
-                    String categoryName = categoryObj.get("name").toString();
-                    categories.add(new Category(categoryId, categoryName));
-                }
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        return categories;
-    }
-
-    public ArrayList getLevelCategoryData(String level_id) {
-        String categoryJSON = JsonToString("https://www.speedrun.com/api/v1/levels/" + level_id + "/categories");
-        ArrayList<Category> categories = new ArrayList<>();
-        if (categoryJSON != null) {
-            try {
-                JSONParser parser = new JSONParser();
-                JSONObject obj = (JSONObject) parser.parse(categoryJSON);
-                JSONArray data = (JSONArray) obj.get("data");
-
-                for (int i = 0; i < data.size(); i++) {
-                    JSONObject categoryObj = (JSONObject) data.get(i);
-                    String id = categoryObj.get("id").toString();
-                    String name = categoryObj.get("name").toString();
-                    categories.add(new Category(id, name));
-                }
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        return categories;
-    }
-
-    public ArrayList getLevelData(String game_id) {
-        String categoryJSON = JsonToString("https://www.speedrun.com/api/v1/games/" + game_id + "/levels");
-        ArrayList<Level> levels = new ArrayList<>();
-        if (categoryJSON != null) {
-            try {
-                JSONParser parser = new JSONParser();
-                JSONObject obj = (JSONObject) parser.parse(categoryJSON);
-                JSONArray data = (JSONArray) obj.get("data");
-
-                for (int i = 0; i < data.size(); i++) {
-                    JSONObject categoryObj = (JSONObject) data.get(i);
-                    String levelId = categoryObj.get("id").toString();
-                    String levelName = Objects.requireNonNull(categoryObj.get("name")).toString();
-                    levels.add(new Level(levelId, levelName));
-                }
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        return levels;
     }
 
     // Function for getting required date for a game based on it's ID
@@ -335,6 +186,7 @@ public class ReadJSON {
         String releaseYear = null;
         ArrayList<Category> categoryArrayList = new ArrayList<>();
         ArrayList<Level> levelArrayList = new ArrayList<>();
+        ArrayList<Category> levelCategoryArrayList = new ArrayList<>();
 
         if (gameJSON != null) {
             try {
@@ -351,9 +203,12 @@ public class ReadJSON {
                     String categoryId = categoryObj.get("id").toString();
                     String categoryName = categoryObj.get("name").toString();
 
-                    // Condition for eliminating level categories
+                    // Condition for separating level categories
                     if (categoryObj.get("type").toString().compareTo("per-level") != 0) {
                         categoryArrayList.add(new Category(categoryId, categoryName));
+                    }
+                    else {
+                        levelCategoryArrayList.add(new Category(categoryId, categoryName));
                     }
                 }
 
@@ -378,7 +233,7 @@ public class ReadJSON {
             }
         }
 
-        Game game = new Game(gameId, gameName, imageUrl, releaseYear, categoryArrayList, levelArrayList);
+        Game game = new Game(gameId, gameName, imageUrl, releaseYear, categoryArrayList, levelArrayList, levelCategoryArrayList);
 
         return game;
     }
