@@ -54,7 +54,7 @@ public class GamePage extends AppCompatActivity {
         setPlatforms();
 
         tvGameName.setText(game.getGameName());
-        tvGameReleaseYear.setText("Release year: " + game.getReleaseYear());
+        tvGameReleaseYear.setText("Released: " + game.getReleaseYear());
 
         Glide.with(this)
                 .load(game.getImageUrl())
