@@ -17,17 +17,17 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ReadJSON json = ReadJSON.getInstance();
-
-    private EditText etGameSearch;
-    private ListView lvGameList;
-    private Switch sUnofficialReleases;
-
-    private ArrayList<Game> gameList;
+    WriteJSON wJson = WriteJSON.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,57 +37,40 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        etGameSearch = findViewById(R.id.etGameSearch);
-        lvGameList = findViewById(R.id.lvGameList);
-        sUnofficialReleases = findViewById(R.id.sUnofficialReleases);
-
-        lvGameList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MainActivity.this, GamePage.class);
-                intent.putExtra("gameId", gameList.get(i).getGameId());
-                startActivity(intent);
-            }
-        });
+        setUserData();
 
     }
 
-    // Method for searching games based on user input
-    public void searchGames(View v) {
-        if (sUnofficialReleases.isChecked() == false) {
-            gameList = json.gameSearch(etGameSearch.getText().toString() + "&romhack=false");
+    public void setUserData(){
+        File userDataFile = new File(getApplicationContext().getFilesDir(), "user_data");
+
+        if (userDataFile.exists()) {
+            System.out.println("File exists");
         }
         else {
-            gameList = json.gameSearch(etGameSearch.getText().toString());
-        }
-        setGameList();
-    }
+            System.out.println("User data does not exists, creating a folder");
 
-    // Method for updating the list of games shown
-    private void setGameList(){
-        if (gameList != null) {
-            GameListAdapter adapter = new GameListAdapter(this, R.layout.game_list_view, gameList);
-            lvGameList.setAdapter(adapter);
-        }
+            // Creating a JSON file for storing all of the users
+            userDataFile = new File(this.getFilesDir(), "user_data");
+            ArrayList<User> users = new ArrayList<>();
 
-    }
-
-    // This makes EditText element to lose focus after clicking somewhere else
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            View v = getCurrentFocus();
-            if ( v instanceof EditText) {
-                Rect outRect = new Rect();
-                v.getGlobalVisibleRect(outRect);
-                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
-                    v.clearFocus();
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                }
+            try {
+                wJson.writeJsonStream(new FileOutputStream(userDataFile), users);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+
+            // Creating a file for storing the current user
+            try {
+                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(this.openFileOutput("current_user.txt", Context.MODE_PRIVATE));
+                outputStreamWriter.write("");
+                outputStreamWriter.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
-        return super.dispatchTouchEvent( event );
     }
 
     @Override
@@ -108,6 +91,16 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onContextItemSelected(item);
         }
+    }
+
+    public void goToGameSearchPage(View v) {
+        Intent intent = new Intent(MainActivity.this, GameSearchPage.class);
+        startActivity(intent);
+    }
+
+    public void goToLoginPage(View v) {
+        Intent intent = new Intent(MainActivity.this, LoginPage.class);
+        startActivity(intent);
     }
 
 }

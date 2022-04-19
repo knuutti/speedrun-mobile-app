@@ -9,21 +9,25 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ecd8322-fd8c-495b-b80d-0c0b0dadb56c" name="Default Changelist" comment="Added leaderboard page">
+    <list default="true" id="8ecd8322-fd8c-495b-b80d-0c0b0dadb56c" name="Default Changelist" comment="Added stuff">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/GameSearchPage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/LoginPage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/WriteJSON.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/game_search_page.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/login_page.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/LeaderboardAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/LeaderboardAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/ReadJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/ReadJSON.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/Run.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/Run.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/leaderboard_list_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/leaderboard_list_view.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/leaderboard_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/leaderboard_page.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/main_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/main_page.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\eknut\.android\avd\Pixel_2_API_30_1.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[MNV9K19918901207]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -171,7 +175,13 @@
       <option name="presentableId" value="LOCAL−00005" />
       <updated>1650110943659</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL−00006" summary="Added stuff">
+      <created>1650348905938</created>
+      <option name="number" value="LOCAL−00006" />
+      <option name="presentableId" value="LOCAL−00006" />
+      <updated>1650348905938</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -192,6 +202,7 @@
     <MESSAGE value="Updated game search" />
     <MESSAGE value="Added functional action bar and game page" />
     <MESSAGE value="Added leaderboard page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added leaderboard page" />
+    <MESSAGE value="Added stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added stuff" />
   </component>
 </project>
