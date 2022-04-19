@@ -9,7 +9,10 @@ public class User {
     private ArrayList<Game> followedGames;
     private ArrayList<Player> followedPlayers;
 
-    public User() { }
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     // GETTERS AND SETTERS
 

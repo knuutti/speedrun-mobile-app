@@ -7,7 +7,7 @@
         android:allowBackup="true"
         android:theme="@style/Theme.Harkkatyo"
         android:icon="@drawable/ic_launcher_foreground"
-        android:label=""
+        android:label="Harkkatyö"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true">
@@ -16,10 +16,11 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".GameSearchPage" />
+        <activity android:name=".LoginPage" />
         <activity android:name=".GamePage"/>
         <activity android:name=".LeaderboardPage"/>
     </application>

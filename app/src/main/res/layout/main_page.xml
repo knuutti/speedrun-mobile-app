@@ -7,85 +7,28 @@
     android:background="#1C1C1C"
     tools:context=".MainActivity">
 
-
-
-    <ImageButton
-        android:id="@+id/bSearch"
+    <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="15dp"
-        android:background="#2E2E2E"
-        android:backgroundTint="#2E2E2E"
-        android:foregroundTint="#FFFFFF"
-        android:minWidth="48dp"
-        android:onClick="searchGames"
-        app:layout_constraintBottom_toBottomOf="@+id/etGameSearch"
+        android:layout_height="wrap_content"
+        android:onClick="goToGameSearchPage"
+        android:text="SEARCH GAMES"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etGameSearch"
-        app:srcCompat="@android:drawable/ic_menu_search"
-        app:tint="#FFFFFF"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Switch
-        android:id="@+id/sUnofficialReleases"
+    <Button
+        android:id="@+id/button2"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginStart="15dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:fontFamily="@font/saicond"
-        android:text="Show unofficial releases"
-        android:textColor="#FFFFFF"
-        android:onClick="searchGames"
+        android:onClick="goToLoginPage"
+        android:text="LOGIN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etGameSearch"
+        app:layout_constraintTop_toBottomOf="@+id/button"
         app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/etGameSearch"
-        android:layout_width="335dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:background="#2E2E2E"
-        android:fontFamily="@font/saicond"
-        android:hint="Search for games:"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:onClick="searchGames"
-        android:padding="10dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#838383"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bSearch"
-        app:layout_constraintHorizontal_bias="0.02"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ListView
-        android:id="@+id/lvGameList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
-        android:choiceMode="singleChoice"
-        android:clickable="true"
-        android:divider="@color/transparent"
-        android:dividerHeight="10dp"
-        android:maxHeight="100dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sUnofficialReleases" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
