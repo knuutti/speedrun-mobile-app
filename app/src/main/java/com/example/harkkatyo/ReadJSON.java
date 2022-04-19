@@ -115,7 +115,7 @@ public class ReadJSON {
                 JSONArray playerList =(JSONArray) players.get("data");
 
                 // Loop for going through each run on the leaderboard
-                for (int i = 0 ; i < runList.size() ; i++) {
+                for (int i = 0 ; i < runList.size() && i < 300 ; i++) {
                     JSONObject runObject = (JSONObject) runList.get(i);
                     JSONObject playerObject = (JSONObject) playerList.get(i);
 
@@ -267,12 +267,14 @@ public class ReadJSON {
                 JSONObject cover = (JSONObject) assets.get("cover-medium");
                 JSONObject developers = (JSONObject) data.get("developers");
                 JSONArray developerData = (JSONArray) developers.get("data");
-                //JSONObject developerjson = (JSONObject) developerData.get(0);
+                if (developerData.size() > 0) {
+                    JSONObject developerjson = (JSONObject) developerData.get(0);
+                    developer = developerjson.get("name").toString();
+                }
 
                 gameName = names.get("international").toString();
                 imageUrl = cover.get("uri").toString();
                 releaseYear = data.get("released").toString();
-                //developer = developerjson.get("name").toString();
 
             } catch (ParseException e) {
                 e.printStackTrace();

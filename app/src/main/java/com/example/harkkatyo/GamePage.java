@@ -56,8 +56,14 @@ public class GamePage extends AppCompatActivity {
         setPlatforms();
 
         tvGameName.setText(game.getGameName());
-        tvGameReleaseYear.setText("Released: " + game.getReleaseYear());
-        tvGameDeveloper.setText("Developer: " + game.getDeveloper());
+
+
+        if (game.getReleaseYear() != null) {
+            tvGameReleaseYear.setText("Released: " + game.getReleaseYear());
+        }
+        if (game.getDeveloper() != null) {
+            tvGameDeveloper.setText("Developer: " + game.getDeveloper());
+        }
 
         Glide.with(this)
                 .load(game.getImageUrl())
@@ -69,17 +75,22 @@ public class GamePage extends AppCompatActivity {
     // Setting up all platforms
     private void setPlatforms() {
         tvGamePlatforms = findViewById(R.id.tv_game_platforms_game_page);
-        ArrayList<String> platforms = game.getPlatforms();
-        String platformString = "";
-        for (int i = 0; i < platforms.size(); i++) {
-            if (i == platforms.size() - 1) {
-                platformString = platformString + platforms.get(i);
+
+        if (game.getPlatforms().size() > 0) {
+
+            ArrayList<String> platforms = game.getPlatforms();
+
+            String platformString = "";
+            for (int i = 0; i < platforms.size(); i++) {
+                if (i == platforms.size() - 1) {
+                    platformString = platformString + platforms.get(i);
+                } else {
+                    platformString = platformString + platforms.get(i) + ", ";
+                }
             }
-            else {
-                platformString = platformString + platforms.get(i) + ", ";
-            }
+            tvGamePlatforms.setText("Platforms: " + platformString);
+
         }
-        tvGamePlatforms.setText("Platforms: " + platformString);
     }
 
     private void setListViews(){
