@@ -28,6 +28,7 @@ public class GamePage extends AppCompatActivity {
     private TextView tvGameName;
     private TextView tvGameReleaseYear;
     private TextView tvGamePlatforms;
+    private TextView tvGameDeveloper;
     private ListView lvCategoryList;
     private ListView lvLevelList;
     private TabLayout tlType;
@@ -47,6 +48,7 @@ public class GamePage extends AppCompatActivity {
         tvGameReleaseYear = findViewById(R.id.tv_game_releaseyear_game_page);
         ivCoverImage = findViewById(R.id.iv_cover_image_game_page);
         tvGameName = findViewById(R.id.tv_game_name_game_page);
+        tvGameDeveloper = findViewById(R.id.tv_game_developer_game_page);
 
 
         setListViews();
@@ -55,6 +57,7 @@ public class GamePage extends AppCompatActivity {
 
         tvGameName.setText(game.getGameName());
         tvGameReleaseYear.setText("Released: " + game.getReleaseYear());
+        tvGameDeveloper.setText("Developer: " + game.getDeveloper());
 
         Glide.with(this)
                 .load(game.getImageUrl())

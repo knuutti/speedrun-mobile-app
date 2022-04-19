@@ -121,4 +121,19 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_game_releaseyear_game_page"
         app:layout_constraintVertical_bias="0.0" />
 
+    <TextView
+        android:id="@+id/tv_game_developer_game_page"
+        android:layout_width="232dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/saicond"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/lv_category_list_game_page"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.416"
+        app:layout_constraintStart_toEndOf="@+id/iv_cover_image_game_page"
+        app:layout_constraintTop_toBottomOf="@+id/tv_game_platforms_game_page"
+        app:layout_constraintVertical_bias="0.066" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
