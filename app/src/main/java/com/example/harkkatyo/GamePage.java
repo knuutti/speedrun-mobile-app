@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
+
 public class GamePage extends AppCompatActivity {
 
     ReadJSON json = ReadJSON.getInstance();
@@ -24,6 +26,8 @@ public class GamePage extends AppCompatActivity {
 
     private ImageView ivCoverImage;
     private TextView tvGameName;
+    private TextView tvGameReleaseYear;
+    private TextView tvGamePlatforms;
     private ListView lvCategoryList;
     private ListView lvLevelList;
     private TabLayout tlType;
@@ -40,18 +44,39 @@ public class GamePage extends AppCompatActivity {
         String gameId = intent.getStringExtra("gameId");
         game = json.getGameData(gameId);
 
+        tvGameReleaseYear = findViewById(R.id.tv_game_releaseyear_game_page);
         ivCoverImage = findViewById(R.id.iv_cover_image_game_page);
         tvGameName = findViewById(R.id.tv_game_name_game_page);
 
+
         setListViews();
         setTypeTabs();
+        setPlatforms();
 
         tvGameName.setText(game.getGameName());
+        tvGameReleaseYear.setText("Release year: " + game.getReleaseYear());
+
         Glide.with(this)
                 .load(game.getImageUrl())
                 .override(300, 200)
                 .into(ivCoverImage);
 
+    }
+
+    // Setting up all platforms
+    private void setPlatforms() {
+        tvGamePlatforms = findViewById(R.id.tv_game_platforms_game_page);
+        ArrayList<String> platforms = game.getPlatforms();
+        String platformString = "";
+        for (int i = 0; i < platforms.size(); i++) {
+            if (i == platforms.size() - 1) {
+                platformString = platformString + platforms.get(i);
+            }
+            else {
+                platformString = platformString + platforms.get(i) + ", ";
+            }
+        }
+        tvGamePlatforms.setText("Platforms: " + platformString);
     }
 
     private void setListViews(){

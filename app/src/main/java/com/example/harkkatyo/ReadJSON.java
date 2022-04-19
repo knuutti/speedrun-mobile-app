@@ -82,8 +82,9 @@ public class ReadJSON {
                     JSONObject assets = (JSONObject) gameInstance.get("assets");
                     JSONObject coverImage = (JSONObject) assets.get("cover-tiny");
                     String imageUrl = coverImage.get("uri").toString();
+                    String releaseYear = gameInstance.get("released").toString();
 
-                    Game game = new Game(gameId, gameName, imageUrl);
+                    Game game = new Game(gameId, gameName, releaseYear, imageUrl);
 
                     gameList.add(game);
                 }
@@ -208,7 +209,7 @@ public class ReadJSON {
 
     // Function for getting required date for a game based on it's ID
     public Game getGameData(String gameId) {
-        String gameJSON = JsonToString("https://www.speedrun.com/api/v1/games/" + gameId + "?embed=categories,levels");
+        String gameJSON = JsonToString("https://www.speedrun.com/api/v1/games/" + gameId + "?embed=categories,levels,platforms");
 
         String gameName = null;
         String imageUrl = null;
@@ -216,6 +217,7 @@ public class ReadJSON {
         ArrayList<Category> categoryArrayList = new ArrayList<>();
         ArrayList<Level> levelArrayList = new ArrayList<>();
         ArrayList<Category> levelCategoryArrayList = new ArrayList<>();
+        ArrayList<String> platformArrayList = new ArrayList<>();
 
         if (gameJSON != null) {
             try {
@@ -224,6 +226,7 @@ public class ReadJSON {
                 JSONObject data = (JSONObject) obj.get("data");
                 JSONObject categories = (JSONObject) data.get("categories");
                 JSONObject levels = (JSONObject) data.get("levels");
+                JSONObject platforms = (JSONObject) data.get("platforms");
 
                 JSONArray categoryData = (JSONArray) categories.get("data");
 
@@ -250,6 +253,14 @@ public class ReadJSON {
                     levelArrayList.add(new Level(levelId, levelName));
                 }
 
+                JSONArray platformData = (JSONArray) platforms.get("data");
+
+                for(int i = 0; i < platformData.size(); i++) {
+                    JSONObject platformObj = (JSONObject) platformData.get(i);
+                    String platformName = platformObj.get("name").toString();
+                    platformArrayList.add(platformName);
+                }
+
                 JSONObject names = (JSONObject) data.get("names");
                 JSONObject assets = (JSONObject) data.get("assets");
                 JSONObject cover = (JSONObject) assets.get("cover-medium");
@@ -262,7 +273,7 @@ public class ReadJSON {
             }
         }
 
-        Game game = new Game(gameId, gameName, imageUrl, releaseYear, categoryArrayList, levelArrayList, levelCategoryArrayList);
+        Game game = new Game(gameId, gameName, imageUrl, releaseYear, categoryArrayList, levelArrayList, levelCategoryArrayList, platformArrayList);
 
         return game;
     }
