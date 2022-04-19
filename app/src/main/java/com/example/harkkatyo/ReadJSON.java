@@ -209,11 +209,12 @@ public class ReadJSON {
 
     // Function for getting required date for a game based on it's ID
     public Game getGameData(String gameId) {
-        String gameJSON = JsonToString("https://www.speedrun.com/api/v1/games/" + gameId + "?embed=categories,levels,platforms");
+        String gameJSON = JsonToString("https://www.speedrun.com/api/v1/games/" + gameId + "?embed=categories,levels,platforms,developers,publishers");
 
         String gameName = null;
         String imageUrl = null;
         String releaseYear = null;
+        String developer = null;
         ArrayList<Category> categoryArrayList = new ArrayList<>();
         ArrayList<Level> levelArrayList = new ArrayList<>();
         ArrayList<Category> levelCategoryArrayList = new ArrayList<>();
@@ -264,16 +265,21 @@ public class ReadJSON {
                 JSONObject names = (JSONObject) data.get("names");
                 JSONObject assets = (JSONObject) data.get("assets");
                 JSONObject cover = (JSONObject) assets.get("cover-medium");
+                JSONObject developers = (JSONObject) data.get("developers");
+                JSONArray developerData = (JSONArray) developers.get("data");
+                //JSONObject developerjson = (JSONObject) developerData.get(0);
+
                 gameName = names.get("international").toString();
                 imageUrl = cover.get("uri").toString();
                 releaseYear = data.get("released").toString();
+                //developer = developerjson.get("name").toString();
 
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
 
-        Game game = new Game(gameId, gameName, imageUrl, releaseYear, categoryArrayList, levelArrayList, levelCategoryArrayList, platformArrayList);
+        Game game = new Game(gameId, gameName, imageUrl, releaseYear, developer, categoryArrayList, levelArrayList, levelCategoryArrayList, platformArrayList);
 
         return game;
     }

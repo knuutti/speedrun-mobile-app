@@ -8,6 +8,7 @@ public class Game {
     private String gameName;
     private String imageUrl;
     private String releaseYear;
+    private String developer;
 
     private ArrayList<Category> categories;
     private ArrayList<Level> levels;
@@ -25,14 +26,14 @@ public class Game {
         this.gameName = gameName;
         this.releaseYear = releaseYear;
         this.imageUrl = imageUrl;
-
     }
 
-    public Game(String gameId, String gameName, String imageUrl, String releaseYear, ArrayList categories, ArrayList levels, ArrayList levelCategories, ArrayList platforms) {
+    public Game(String gameId, String gameName, String imageUrl, String releaseYear, String developer, ArrayList categories, ArrayList levels, ArrayList levelCategories, ArrayList platforms) {
         this.gameId = gameId;
         this.gameName = gameName;
         this.imageUrl = imageUrl;
         this.releaseYear = releaseYear;
+        this.developer = developer;
         this.categories = categories;
         this.levels = levels;
         this.levelCategories = levelCategories;
@@ -105,4 +106,8 @@ public class Game {
     public ArrayList<String> getPlatforms() { return platforms;}
 
     public void setPlatforms(ArrayList<String> platforms) {this.platforms = platforms;}
+
+    public String getDeveloper() {return developer;}
+
+    public void setDeveloper(String developer) {this.developer = developer;}
 }
