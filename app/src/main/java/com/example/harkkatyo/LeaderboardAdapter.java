@@ -7,7 +7,6 @@ import android.graphics.Shader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +25,7 @@ public class LeaderboardAdapter extends ArrayAdapter<Run> {
 
     private static class ViewHolder {
         TextView placement;
+        ImageView trophy;
         TextView playerName;
         TextView time;
         ImageView flag;
@@ -42,6 +42,7 @@ public class LeaderboardAdapter extends ArrayAdapter<Run> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         String placement = getItem(position).getPlacement();
+        String trophyUrl = getItem(position).getTrophyUrl();
         String playerName = getItem(position).getPlayer().getPlayerName();
         String time = getItem(position).getTime();
         String flagUrl = "https://www.speedrun.com/images/flags/" + getItem(position).getPlayer().getCountry() + ".png";
@@ -55,10 +56,11 @@ public class LeaderboardAdapter extends ArrayAdapter<Run> {
             convertView = inflater.inflate(mResource, parent, false);
 
             holder = new ViewHolder();
-            holder.placement = (TextView) convertView.findViewById(R.id.tvPlace);
-            holder.playerName = (TextView) convertView.findViewById(R.id.tvUsername);
-            holder.time = (TextView) convertView.findViewById(R.id.tvTime);
-            holder.flag = (ImageView) convertView.findViewById(R.id.ivFlag);
+            holder.placement = convertView.findViewById(R.id.tvPlace);
+            holder.trophy = convertView.findViewById(R.id.ivTrophy);
+            holder.playerName = convertView.findViewById(R.id.tvUsername);
+            holder.time = convertView.findViewById(R.id.tvTime);
+            holder.flag = convertView.findViewById(R.id.ivFlag);
 
             convertView.setTag(holder);
 
@@ -87,12 +89,28 @@ public class LeaderboardAdapter extends ArrayAdapter<Run> {
             convertView.setBackgroundColor(Color.parseColor("#101010"));
         }
 
+        if (trophyUrl == null) {
+            holder.trophy.setVisibility(View.GONE);
+            holder.placement.setVisibility(View.VISIBLE);
+        }
+        else {
+            holder.trophy.setVisibility(View.VISIBLE);
+            Glide.with(mContext)
+                    .load(trophyUrl)
+                    .override(300, 200)
+                    .into(holder.trophy);
+            holder.placement.setVisibility(View.INVISIBLE);
+        }
+
         if (flagUrl.compareTo("https://www.speedrun.com/images/flags/default.png") != 0) {
             Glide.with(mContext)
                     .load(flagUrl)
                     .override(300, 200)
                     .into(holder.flag);
+
+            holder.playerName.setText("" + playerName);
         }
+
         return convertView;
     }
 }

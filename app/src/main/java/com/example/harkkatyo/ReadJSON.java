@@ -108,6 +108,7 @@ public class ReadJSON {
                 JSONObject obj = (JSONObject) parser.parse(leaderboardJSON);
                 JSONObject data = (JSONObject) obj.get("data");
                 JSONObject players = (JSONObject) data.get("players");
+                JSONObject game = (JSONObject) data.get("game");
 
                 JSONArray runList = (JSONArray) data.get("runs");
                 JSONArray playerList =(JSONArray) players.get("data");
@@ -123,7 +124,11 @@ public class ReadJSON {
 
                     String place = runObject.get("place").toString();
                     String runId = runData.get("id").toString();
-                    String date = runData.get("date").toString();
+
+                    String date = "";
+                    if (runData.get("date") != null) {
+                        date = runData.get("date").toString();
+                    }
                     String time = times.get("primary_t").toString();
 
                     // Player related data
@@ -133,6 +138,7 @@ public class ReadJSON {
                     String flag = "default";
                     String playerName = null;
                     String playerId = null;
+                    String trophyUrl = null;
 
                     // Condition for separating registered users from guests
                     if (playerObject.get("rel").toString().compareTo("user") == 0) {
@@ -164,8 +170,31 @@ public class ReadJSON {
                         playerName = playerObject.get("name").toString();
                     }
 
-                    Run run = new Run(place, runId, time, date, new Player(playerId, playerName, flag, colorFrom, colorTo));
-                    System.out.println(uri);
+                    // Trophy for top-placements
+                    JSONObject gameData = (JSONObject) game.get("data");
+                    JSONObject gameAssets = (JSONObject) gameData.get("assets");
+                    JSONObject trophy;
+                    if (place.compareTo("1") == 0 && gameAssets.get("trophy-1st") != null) {
+                        trophy = (JSONObject) gameAssets.get("trophy-1st");
+                        trophyUrl = trophy.get("uri").toString();
+                    }
+                    else if (place.compareTo("2") == 0 && gameAssets.get("trophy-2nd") != null) {
+                        trophy = (JSONObject) gameAssets.get("trophy-2nd");
+                        trophyUrl = trophy.get("uri").toString();
+                    }
+                    else if (place.compareTo("3") == 0 && gameAssets.get("trophy-3rd") != null) {
+                        trophy = (JSONObject) gameAssets.get("trophy-3rd");
+                        trophyUrl = trophy.get("uri").toString();
+                    }
+                    else if (place.compareTo("4") == 0 && gameAssets.get("trophy-4th") != null) {
+                        trophy = (JSONObject) gameAssets.get("trophy-4th");
+                        if (trophy.get("uri") != null) {
+                            trophyUrl = trophy.get("uri").toString();
+                        }
+                    }
+
+                    Run run = new Run(place, runId, time, date, trophyUrl, new Player(playerId, playerName, flag, colorFrom, colorTo));
+
                     leaderboard.add(run);
                 }
 

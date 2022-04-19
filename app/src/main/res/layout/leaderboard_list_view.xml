@@ -1,52 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:weightSum="100">
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/tvPlace"
-        android:layout_width="match_parent"
+        android:layout_width="20dp"
         android:layout_height="40dp"
-        android:layout_weight="28"
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/saicond"
         android:gravity="center"
         android:text="Place"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF" />
+        android:textAlignment="gravity"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/ivTrophy"
+        android:layout_width="20dp"
+        android:layout_height="12dp"
+        android:layout_marginStart="15dp"
+        android:gravity="center"
+        android:textAlignment="gravity"
+        android:textColor="#FFFFFF"
+        android:translationY="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/ivFlag"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_weight="32"
+        android:layout_width="wrap_content"
+        android:layout_height="12dp"
+        android:layout_marginStart="5dp"
         android:gravity="center"
-        android:text="Place"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:translationY="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/tvPlace"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_max="30dp" />
 
     <TextView
         android:id="@+id/tvUsername"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_weight="18"
         android:clickable="true"
-        android:fontFamily="sans-serif-black"
+        android:fontFamily="@font/saicond"
         android:gravity="center|left"
         android:text="Player"
         android:textAlignment="gravity"
         android:textColor="#FFFFFF"
-        android:translationX="5pt" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/ivFlag"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvTime"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_weight="24"
+        android:layout_marginEnd="15dp"
+        android:fontFamily="@font/saicond"
         android:gravity="center"
         android:text="Time"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:translationX="10pt" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,14 +8,16 @@ public class Run {
     private String time;
     private String date;
     private String placement;
+    private String trophyUrl;
 
     private Player player;
 
-    public Run(String placement, String runId, String time, String date, Player player) {
+    public Run(String placement, String runId, String time, String date, String trophyUrl, Player player) {
         this.placement = placement;
         this.runId = runId;
         this.date = date;
         this.player = player;
+        this.trophyUrl = trophyUrl;
         this.time = getTimeFormat(time);
     }
 
@@ -107,5 +109,13 @@ public class Run {
 
     public void setPlacement(String placement) {
         this.placement = placement;
+    }
+
+    public String getTrophyUrl() {
+        return trophyUrl;
+    }
+
+    public void setTrophyUrl(String trophyUrl) {
+        this.trophyUrl = trophyUrl;
     }
 }
