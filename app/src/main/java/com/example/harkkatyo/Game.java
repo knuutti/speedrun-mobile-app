@@ -12,6 +12,7 @@ public class Game {
     private ArrayList<Category> categories;
     private ArrayList<Level> levels;
     private ArrayList<Category> levelCategories;
+    private ArrayList<String> platforms;
 
     // CONSTRUCTORS
 
@@ -19,13 +20,15 @@ public class Game {
         this.gameId = gameId;
     }
 
-    public Game(String gameId, String gameName, String imageUrl) {
+    public Game(String gameId, String gameName, String releaseYear, String imageUrl) {
         this.gameId = gameId;
         this.gameName = gameName;
+        this.releaseYear = releaseYear;
         this.imageUrl = imageUrl;
+
     }
 
-    public Game(String gameId, String gameName, String imageUrl, String releaseYear, ArrayList categories, ArrayList levels, ArrayList levelCategories) {
+    public Game(String gameId, String gameName, String imageUrl, String releaseYear, ArrayList categories, ArrayList levels, ArrayList levelCategories, ArrayList platforms) {
         this.gameId = gameId;
         this.gameName = gameName;
         this.imageUrl = imageUrl;
@@ -33,6 +36,7 @@ public class Game {
         this.categories = categories;
         this.levels = levels;
         this.levelCategories = levelCategories;
+        this.platforms = platforms;
     }
 
     @Override
@@ -97,4 +101,8 @@ public class Game {
     public void setLevelCategories(ArrayList<Category> levelCategories) {
         this.levelCategories = levelCategories;
     }
+
+    public ArrayList<String> getPlatforms() { return platforms;}
+
+    public void setPlatforms(ArrayList<String> platforms) {this.platforms = platforms;}
 }

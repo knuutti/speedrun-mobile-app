@@ -11,19 +11,19 @@
   <component name="ChangeListManager">
     <list default="true" id="8ecd8322-fd8c-495b-b80d-0c0b0dadb56c" name="Default Changelist" comment="Added leaderboard page">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/Harkkatyo.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/Harkkatyo.app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/LeaderboardAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/LeaderboardAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/GamePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/GamePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/ReadJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/ReadJSON.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/Run.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/Run.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/leaderboard_list_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/leaderboard_list_view.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/leaderboard_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/leaderboard_page.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/game_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/game_page.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\eknut\.android\avd\Pixel_2_API_30_1.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\veeti\.android\avd\Nexus_6_API_30.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -40,6 +40,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="27T5Y6idR22ZezpLqEeb0Vfy8R9" />
