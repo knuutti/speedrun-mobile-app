@@ -14,8 +14,11 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
+
+import com.bumptech.glide.Glide;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -48,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("File exists");
         }
         else {
-            System.out.println("User data does not exists, creating a folder");
+            System.out.println("User data does not exists, creating a file");
 
             // Creating a JSON file for storing all of the users
-            userDataFile = new File(this.getFilesDir(), "user_data");
+            userDataFile = new File(this.getApplicationContext().getFilesDir(), "user_data.json");
             ArrayList<User> users = new ArrayList<>();
 
             try {
@@ -83,10 +86,16 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                Intent homeIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(homeIntent);
+                return true;
+            case R.id.search:
+                Intent searchIntent = new Intent(getApplicationContext(), GameSearchPage.class);
+                startActivity(searchIntent);
                 return true;
             case R.id.login:
+                Intent loginIntent = new Intent(getApplicationContext(), LoginPage.class);
+                startActivity(loginIntent);
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -95,11 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToGameSearchPage(View v) {
         Intent intent = new Intent(MainActivity.this, GameSearchPage.class);
-        startActivity(intent);
-    }
-
-    public void goToLoginPage(View v) {
-        Intent intent = new Intent(MainActivity.this, LoginPage.class);
         startActivity(intent);
     }
 

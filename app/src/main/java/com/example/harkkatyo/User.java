@@ -9,9 +9,16 @@ public class User {
     private ArrayList<Game> followedGames;
     private ArrayList<Player> followedPlayers;
 
-    public User(String username, String password) {
+    public  User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public User(String username, String password, ArrayList<Game> games, ArrayList<Player> players) {
+        this.username = username;
+        this.password = password;
+        this.followedGames = games;
+        this.followedPlayers = players;
     }
 
     // GETTERS AND SETTERS

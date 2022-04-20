@@ -1,5 +1,8 @@
 package com.example.harkkatyo;
 
+import android.content.Context;
+import android.os.Environment;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -7,10 +10,12 @@ import org.json.simple.parser.ParseException;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -284,6 +289,52 @@ public class ReadJSON {
         Game game = new Game(gameId, gameName, imageUrl, releaseYear, developer, categoryArrayList, levelArrayList, levelCategoryArrayList, platformArrayList);
 
         return game;
+    }
+
+    public ArrayList<User> getUserList(Context applicationContext){
+        ArrayList<User> userArrayList = new ArrayList<>();
+
+        JSONParser parser = new JSONParser();
+        File file = new File(applicationContext.getFilesDir(), "user_data");
+
+        try (FileReader reader = new FileReader(file))
+        {
+            JSONArray obj = (JSONArray) parser.parse(reader);
+
+            for (int i = 0 ; i < obj.size() ; i++) {
+                JSONObject user = (JSONObject) obj.get(i);
+                String username = user.get("username").toString();
+                String password = user.get("password").toString();
+                JSONArray followedGames = (JSONArray) user.get("followed_games");
+                JSONArray followedPlayers = (JSONArray) user.get("followed_players");
+                ArrayList<Game> games = new ArrayList<>();
+                ArrayList<Player> players = new ArrayList<>();
+
+                if (followedGames != null) {
+                    for (int j = 0; j < followedGames.size(); j++) {
+                        games.add(new Game(games.get(j).toString()));
+                    }
+                }
+                if (followedPlayers != null) {
+                    for (int k = 0; k < followedPlayers.size(); k++) {
+                        players.add(new Player(games.get(k).toString()));
+                    }
+                }
+
+                userArrayList.add(new User(username, password, games, players));
+
+            }
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return userArrayList;
     }
 
 }

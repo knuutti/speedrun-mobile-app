@@ -6,19 +6,15 @@
     android:layout_height="match_parent"
     android:background="#1C1C1C">
 
-    <EditText
-        android:id="@+id/tv_username_login_"
+    <TextView
+        android:id="@+id/tv_login_instruction_login_page"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="#2E2E2E"
-        android:ems="10"
         android:fontFamily="@font/saicond"
-        android:hint="Username"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#838383"
+        android:text="Login to your account"
+        android:textColor="#BFBFBF"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,42 +22,10 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/tv_password_login"
+        android:id="@+id/et_login_username_login_page"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginTop="15dp"
-        android:background="#2E2E2E"
-        android:ems="10"
-        android:fontFamily="@font/saicond"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:padding="10dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#838383"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_username_login_"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/btn_log_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:onClick="login"
-        android:text="LOGIN"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_password_login"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/tv_username_sign_up"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
         android:background="#2E2E2E"
         android:ems="10"
         android:fontFamily="@font/saicond"
@@ -73,11 +37,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_log_in"
-        app:layout_constraintVertical_bias="0.47000003" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_login_instruction_login_page"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/tv_password_sign_up"
+        android:id="@+id/et_login_password_login_page"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginTop="15dp"
@@ -93,19 +57,119 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_username_sign_up"
+        app:layout_constraintTop_toBottomOf="@+id/et_login_username_login_page"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_false_login_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/saicond"
+        android:text="Incorrect username of password"
+        android:textColor="#FF4343"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_login_password_login_page"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/btn_sign_up"
+        android:id="@+id/btn_login_login_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/saicond"
+        android:onClick="login"
+        android:text="LOGIN"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_false_login_page"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_signup_instruction_login_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/saicond"
+        android:text="No account? Sign up, it's free!"
+        android:textColor="#BFBFBF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login_login_page"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/et_signup_username_login_page"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="15dp"
+        android:background="#2E2E2E"
+        android:ems="10"
+        android:fontFamily="@font/saicond"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#838383"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_signup_instruction_login_page"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/et_signup_password_login_page"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="15dp"
+        android:background="#2E2E2E"
+        android:ems="10"
+        android:fontFamily="@font/saicond"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#838383"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_signup_username_login_page"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btn_signup_login_page"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:fontFamily="@font/saicond"
         android:onClick="signUp"
         android:text="SIGN UP"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_password_sign_up"
+        app:layout_constraintTop_toBottomOf="@+id/et_signup_password_login_page"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_srcom_login_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:fontFamily="@font/saicond"
+        android:text="This application is based on the API provided by Speedrun.com"
+        android:textColor="#7A7A7A"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
