@@ -3,6 +3,9 @@ package com.example.harkkatyo;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+
+import androidx.annotation.NonNull;
+import androidx.biometric.BiometricPrompt;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
@@ -10,16 +13,20 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -31,9 +38,15 @@ public class LoginPage extends AppCompatActivity {
     private EditText passwordLogin;
     private EditText passwordSignUp;
     private TextView falseLogin;
+    private Button fingerPrintLoginBtn;
+    private Button fingerPrintSignUpBtn;
 
     private String usernameInput;
     private String passwordInput;
+    private Executor executor;
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
+    private BiometricPrompt.PromptInfo promptInfo2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +61,64 @@ public class LoginPage extends AppCompatActivity {
         passwordLogin = findViewById(R.id.et_login_password_login_page);
         passwordSignUp = findViewById(R.id.et_signup_password_login_page);
         falseLogin = findViewById(R.id.tv_false_login_page);
+        fingerPrintLoginBtn = findViewById(R.id.btn_login_fingerprint);
+        fingerPrintSignUpBtn = findViewById(R.id.btn_signup_fingerprint);
 
         falseLogin.setVisibility(View.GONE);
+
+        executor = ContextCompat.getMainExecutor(this);
+        biometricPrompt = new BiometricPrompt(LoginPage.this, executor, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+                Toast.makeText(getApplicationContext(),
+                        "Authentication error: " + errString, Toast.LENGTH_SHORT)
+                        .show();
+
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                Toast.makeText(getApplicationContext(),
+                        "Authentication succeeded!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+                Toast.makeText(getApplicationContext(), "Authentication failed",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
+
+        promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Biometric Authentication")
+                .setSubtitle("Login using your fingerprint")
+                .setNegativeButtonText("Use account password")
+                .setConfirmationRequired(false)
+                .build();
+
+        fingerPrintLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                biometricPrompt.authenticate(promptInfo);
+            }
+        });
+
+        promptInfo2 = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Biometric Authentication")
+                .setSubtitle("Signup using your fingerprint")
+                .setNegativeButtonText("Use account password")
+                .build();
+
+        fingerPrintSignUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                biometricPrompt.authenticate(promptInfo2);
+            }
+        });
 
     }
 
