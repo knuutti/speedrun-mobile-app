@@ -6,6 +6,7 @@ import android.graphics.Rect;
 
 import androidx.annotation.NonNull;
 import androidx.biometric.BiometricPrompt;
+
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
+
 
 public class LoginPage extends AppCompatActivity {
 
@@ -56,6 +58,7 @@ public class LoginPage extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+
         usernameLogin = findViewById(R.id.et_login_username_login_page);
         usernameSignUp = findViewById(R.id.et_signup_username_login_page);
         passwordLogin = findViewById(R.id.et_login_password_login_page);
@@ -80,6 +83,7 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
+                //TODO Tähän lisätään kirjautumisen onnistumisen jälkeinen käsky eli mitä tehdään seuraavaksi
                 Toast.makeText(getApplicationContext(),
                         "Authentication succeeded!", Toast.LENGTH_SHORT).show();
             }
@@ -118,6 +122,7 @@ public class LoginPage extends AppCompatActivity {
             public void onClick(View v) {
                 biometricPrompt.authenticate(promptInfo2);
             }
+            // TODO Jos ymmärrän että miten tää toimii nii pärjätään varmaan yhdellä nappulalla
         });
 
     }
