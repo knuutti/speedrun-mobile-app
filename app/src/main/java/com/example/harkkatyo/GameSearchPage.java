@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class GameSearchPage extends AppCompatActivity {
 
-    ReadJSON json = ReadJSON.getInstance();
+    ReadJSON rJson = ReadJSON.getInstance();
 
     private EditText etGameSearch;
     private ListView lvGameList;
@@ -55,10 +55,10 @@ public class GameSearchPage extends AppCompatActivity {
     // Method for searching games based on user input
     public void searchGames(View v) {
         if (sUnofficialReleases.isChecked() == false) {
-            gameList = json.gameSearch(etGameSearch.getText().toString() + "&romhack=false");
+            gameList = rJson.gameSearch(etGameSearch.getText().toString() + "&romhack=false");
         }
         else {
-            gameList = json.gameSearch(etGameSearch.getText().toString());
+            gameList = rJson.gameSearch(etGameSearch.getText().toString());
         }
         setGameList();
     }
@@ -100,10 +100,16 @@ public class GameSearchPage extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                Intent homeIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(homeIntent);
+                return true;
+            case R.id.search:
+                Intent searchIntent = new Intent(getApplicationContext(), GameSearchPage.class);
+                startActivity(searchIntent);
                 return true;
             case R.id.login:
+                Intent loginIntent = new Intent(getApplicationContext(), LoginPage.class);
+                startActivity(loginIntent);
                 return true;
             default:
                 return super.onContextItemSelected(item);

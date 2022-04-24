@@ -142,18 +142,32 @@
         app:layout_constraintTop_toBottomOf="@+id/et_signup_username_login_page"
         app:layout_constraintVertical_bias="0.0" />
 
+    <TextView
+        android:id="@+id/tv_false_signup_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/saicond"
+        android:text="Password must contain at least 8 characters"
+        android:textColor="#FF4343"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_signup_password_login_page"
+        app:layout_constraintVertical_bias="0.0" />
+
     <Button
         android:id="@+id/btn_signup_login_page"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/saicond"
         android:onClick="signUp"
         android:text="SIGN UP"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_signup_password_login_page"
+        app:layout_constraintTop_toBottomOf="@+id/tv_false_signup_page"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
