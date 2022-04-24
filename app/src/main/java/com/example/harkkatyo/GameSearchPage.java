@@ -69,7 +69,6 @@ public class GameSearchPage extends AppCompatActivity {
             GameListAdapter adapter = new GameListAdapter(this, R.layout.game_list_view, gameList);
             lvGameList.setAdapter(adapter);
         }
-
     }
 
     // This makes EditText element to lose focus after clicking somewhere else

@@ -40,7 +40,7 @@ public class LevelListAdapter extends ArrayAdapter<Level> {
             convertView = inflater.inflate(mResource, parent, false);
 
             holder = new LevelListAdapter.ViewHolder();
-            holder.tvLevelName = (TextView) convertView.findViewById(R.id.tv_category_name_listview);
+            holder.tvLevelName = (TextView) convertView.findViewById(R.id.tv_player_name_listview);
 
             convertView.setTag(holder);
 

@@ -66,7 +66,6 @@ public class ReadJSON {
         searchUrl.append(newSearchWords);
 
         String searchResult = JsonToString(searchUrl.toString());
-
         if (searchResult != null) {
             try {
                 JSONParser parser = new JSONParser();
@@ -95,6 +94,52 @@ public class ReadJSON {
         }
 
         return gameList;
+    }
+
+    // Function for searching players by the search words user gives
+
+    public ArrayList<Player> playerSearch(String searchPlayer) {
+        System.out.println("napin painallus onnistunut!");
+        String country = "";
+        ArrayList<Player> playerList = new ArrayList<>();
+        StringBuilder playerSearchUrl = new StringBuilder("https://www.speedrun.com/api/v1/users?name=");
+
+        String playerSearchWords = searchPlayer.replace(" ", "%20");
+        playerSearchUrl.append(playerSearchWords);
+
+        String playerSearchResult = JsonToString(playerSearchUrl.toString());
+
+        if ((playerSearchResult) != null) {
+            try {
+                JSONParser playerParser = new JSONParser();
+                JSONObject playerObj = (JSONObject) playerParser.parse(playerSearchResult);
+                JSONArray playerData = (JSONArray) playerObj.get("data");
+
+                for (int i = 0; i < playerData.size() ; i++) {
+                    JSONObject playerInstance = (JSONObject) playerData.get(i);
+
+                    String playerId = playerInstance.get("id").toString();
+                    JSONObject playerNames = (JSONObject) playerInstance.get("names");
+                    String playerName = playerNames.get("international").toString();
+                    JSONObject location = (JSONObject) playerInstance.get("location");
+                    if (location != null) {
+                        JSONObject countryjson = (JSONObject) location.get("country");
+                        JSONObject countryNames = (JSONObject) countryjson.get("names");
+                        country = countryNames.get("international").toString();
+                    }
+                    //String country = "Fin";
+                    System.out.println("country is " + country);
+                    Player player = new Player(playerId, playerName, country);
+                    playerList.add(player);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return playerList;
+
     }
 
     public ArrayList<Run> getLeaderboardData(String uri){
@@ -278,4 +323,55 @@ public class ReadJSON {
         return game;
     }
 
+<<<<<<< Updated upstream
+=======
+    public ArrayList<User> getUserList(Context applicationContext){
+        ArrayList<User> userArrayList = new ArrayList<>();
+
+        JSONParser parser = new JSONParser();
+        File file = new File(applicationContext.getFilesDir(), "user_data");
+
+        try (FileReader reader = new FileReader(file))
+        {
+            JSONArray obj = (JSONArray) parser.parse(reader);
+
+            for (int i = 0 ; i < obj.size() ; i++) {
+                JSONObject user = (JSONObject) obj.get(i);
+                String username = user.get("username").toString();
+                String password = user.get("password").toString();
+                JSONArray followedGames = (JSONArray) user.get("followed_games");
+                JSONArray followedPlayers = (JSONArray) user.get("followed_players");
+                ArrayList<Game> games = new ArrayList<>();
+                ArrayList<Player> players = new ArrayList<>();
+
+                if (followedGames != null) {
+                    for (int j = 0; j < followedGames.size(); j++) {
+                        games.add(new Game(games.get(j).toString()));
+                    }
+                }
+                if (followedPlayers != null) {
+                    for (int k = 0; k < followedPlayers.size(); k++) {
+                        players.add(new Player(games.get(k).toString()));
+                    }
+                }
+
+                userArrayList.add(new User(username, password, games, players));
+
+            }
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return userArrayList;
+    }
+
+
+
+>>>>>>> Stashed changes
 }
