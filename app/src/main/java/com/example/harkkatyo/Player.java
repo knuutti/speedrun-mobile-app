@@ -14,9 +14,8 @@ public class Player {
 
     // CONSTRUCTORS
 
-    public Player(String playerId, String playerName) {
+    public Player(String playerId) {
         this.playerId = playerId;
-        this.playerName = playerName;
     }
 
     public Player(String playerId, String playerName, String country, String colorStart, String colorEnd) {

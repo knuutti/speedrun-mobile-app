@@ -1,5 +1,8 @@
 package com.example.harkkatyo;
 
+import android.content.Context;
+import android.os.Environment;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -7,10 +10,12 @@ import org.json.simple.parser.ParseException;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -160,7 +165,7 @@ public class ReadJSON {
                 JSONArray playerList =(JSONArray) players.get("data");
 
                 // Loop for going through each run on the leaderboard
-                for (int i = 0 ; i < runList.size() ; i++) {
+                for (int i = 0 ; i < runList.size() && i < 300 ; i++) {
                     JSONObject runObject = (JSONObject) runList.get(i);
                     JSONObject playerObject = (JSONObject) playerList.get(i);
 
@@ -254,11 +259,12 @@ public class ReadJSON {
 
     // Function for getting required date for a game based on it's ID
     public Game getGameData(String gameId) {
-        String gameJSON = JsonToString("https://www.speedrun.com/api/v1/games/" + gameId + "?embed=categories,levels,platforms");
+        String gameJSON = JsonToString("https://www.speedrun.com/api/v1/games/" + gameId + "?embed=categories,levels,platforms,developers,publishers");
 
         String gameName = null;
         String imageUrl = null;
         String releaseYear = null;
+        String developer = null;
         ArrayList<Category> categoryArrayList = new ArrayList<>();
         ArrayList<Level> levelArrayList = new ArrayList<>();
         ArrayList<Category> levelCategoryArrayList = new ArrayList<>();
@@ -309,6 +315,13 @@ public class ReadJSON {
                 JSONObject names = (JSONObject) data.get("names");
                 JSONObject assets = (JSONObject) data.get("assets");
                 JSONObject cover = (JSONObject) assets.get("cover-medium");
+                JSONObject developers = (JSONObject) data.get("developers");
+                JSONArray developerData = (JSONArray) developers.get("data");
+                if (developerData.size() > 0) {
+                    JSONObject developerjson = (JSONObject) developerData.get(0);
+                    developer = developerjson.get("name").toString();
+                }
+
                 gameName = names.get("international").toString();
                 imageUrl = cover.get("uri").toString();
                 releaseYear = data.get("released").toString();
@@ -318,13 +331,11 @@ public class ReadJSON {
             }
         }
 
-        Game game = new Game(gameId, gameName, imageUrl, releaseYear, categoryArrayList, levelArrayList, levelCategoryArrayList, platformArrayList);
+        Game game = new Game(gameId, gameName, imageUrl, releaseYear, developer, categoryArrayList, levelArrayList, levelCategoryArrayList, platformArrayList);
 
         return game;
     }
 
-<<<<<<< Updated upstream
-=======
     public ArrayList<User> getUserList(Context applicationContext){
         ArrayList<User> userArrayList = new ArrayList<>();
 
@@ -371,7 +382,4 @@ public class ReadJSON {
         return userArrayList;
     }
 
-
-
->>>>>>> Stashed changes
 }

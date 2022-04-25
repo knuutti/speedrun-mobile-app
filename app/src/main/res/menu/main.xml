@@ -9,8 +9,13 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/search"
+        android:icon="@drawable/search_icon"
+        android:title="Search"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/login"
-        android:icon="@drawable/login_icon"
         android:title="Login"
         app:showAsAction="ifRoom" />
 

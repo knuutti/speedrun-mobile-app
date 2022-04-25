@@ -28,6 +28,7 @@ public class GamePage extends AppCompatActivity {
     private TextView tvGameName;
     private TextView tvGameReleaseYear;
     private TextView tvGamePlatforms;
+    private TextView tvGameDeveloper;
     private ListView lvCategoryList;
     private ListView lvLevelList;
     private TabLayout tlType;
@@ -47,6 +48,7 @@ public class GamePage extends AppCompatActivity {
         tvGameReleaseYear = findViewById(R.id.tv_game_releaseyear_game_page);
         ivCoverImage = findViewById(R.id.iv_cover_image_game_page);
         tvGameName = findViewById(R.id.tv_game_name_game_page);
+        tvGameDeveloper = findViewById(R.id.tv_game_developer_game_page);
 
 
         setListViews();
@@ -54,7 +56,14 @@ public class GamePage extends AppCompatActivity {
         setPlatforms();
 
         tvGameName.setText(game.getGameName());
-        tvGameReleaseYear.setText("Release year: " + game.getReleaseYear());
+
+
+        if (game.getReleaseYear() != null) {
+            tvGameReleaseYear.setText("Released: " + game.getReleaseYear());
+        }
+        if (game.getDeveloper() != null) {
+            tvGameDeveloper.setText("Developer: " + game.getDeveloper());
+        }
 
         Glide.with(this)
                 .load(game.getImageUrl())
@@ -66,17 +75,22 @@ public class GamePage extends AppCompatActivity {
     // Setting up all platforms
     private void setPlatforms() {
         tvGamePlatforms = findViewById(R.id.tv_game_platforms_game_page);
-        ArrayList<String> platforms = game.getPlatforms();
-        String platformString = "";
-        for (int i = 0; i < platforms.size(); i++) {
-            if (i == platforms.size() - 1) {
-                platformString = platformString + platforms.get(i);
+
+        if (game.getPlatforms().size() > 0) {
+
+            ArrayList<String> platforms = game.getPlatforms();
+
+            String platformString = "";
+            for (int i = 0; i < platforms.size(); i++) {
+                if (i == platforms.size() - 1) {
+                    platformString = platformString + platforms.get(i);
+                } else {
+                    platformString = platformString + platforms.get(i) + ", ";
+                }
             }
-            else {
-                platformString = platformString + platforms.get(i) + ", ";
-            }
+            tvGamePlatforms.setText("Platforms: " + platformString);
+
         }
-        tvGamePlatforms.setText("Platforms: " + platformString);
     }
 
     private void setListViews(){
@@ -117,22 +131,26 @@ public class GamePage extends AppCompatActivity {
         });
     }
 
-    // Setting up the action bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-    // Setting up action bar functionality
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                Intent homeIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(homeIntent);
+                return true;
+            case R.id.search:
+                Intent searchIntent = new Intent(getApplicationContext(), GameSearchPage.class);
+                startActivity(searchIntent);
                 return true;
             case R.id.login:
+                Intent loginIntent = new Intent(getApplicationContext(), LoginPage.class);
+                startActivity(loginIntent);
                 return true;
             default:
                 return super.onContextItemSelected(item);

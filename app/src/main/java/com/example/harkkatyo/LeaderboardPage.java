@@ -47,15 +47,20 @@ public class LeaderboardPage extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    // Setting up action bar functionality
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                Intent homeIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(homeIntent);
+                return true;
+            case R.id.search:
+                Intent searchIntent = new Intent(getApplicationContext(), GameSearchPage.class);
+                startActivity(searchIntent);
                 return true;
             case R.id.login:
+                Intent loginIntent = new Intent(getApplicationContext(), LoginPage.class);
+                startActivity(loginIntent);
                 return true;
             default:
                 return super.onContextItemSelected(item);
