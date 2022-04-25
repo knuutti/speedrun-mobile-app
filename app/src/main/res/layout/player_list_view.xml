@@ -5,6 +5,7 @@
     android:orientation="horizontal"
     android:weightSum="100">
 
+
     <TextView
         android:id="@+id/tv_player_name_listview"
         android:layout_width="match_parent"
@@ -12,10 +13,10 @@
         android:layout_weight="30"
         android:fontFamily="@font/saicond"
         android:gravity="center|left"
-        android:text="Category"
+        android:text="Game"
         android:textAlignment="gravity"
         android:textColor="#FFFFFF"
-        android:translationX="0pt" />
+        android:translationX="10pt" />
 
 
 </LinearLayout>

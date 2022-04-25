@@ -4,12 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -17,13 +15,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
-
 import com.bumptech.glide.Glide;
-
 import java.io.BufferedWriter;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
@@ -35,10 +33,14 @@ public class MainActivity extends AppCompatActivity {
 
     private User currentUser;
 
+    //WebView web;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
+
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -116,5 +118,23 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, GameSearchPage.class);
         startActivity(intent);
     }
+
+    public void goToLoginPage(View v) {
+        Intent intent = new Intent(MainActivity.this, LoginPage.class);
+        startActivity(intent);
+    }
+
+    public void goToPlayerSearchPage(View v) {
+        Intent intent = new Intent(MainActivity.this, PlayerSearchPage.class);
+        startActivity(intent);
+    }
+
+    // TODO tää ei jostain syystä toimi, en keksinyt mitään syytä mut voi koittaa :-(
+   /*public void imageWeb(View v) {
+        web = findViewById(R.id.webView);
+        web.setWebViewClient(new WebViewClient());
+        web.getSettings().setJavaScriptEnabled(true);
+        web.loadUrl("http://www.youtube.com");
+    }*/
 
 }

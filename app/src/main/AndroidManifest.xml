@@ -3,26 +3,33 @@
     package="com.example.harkkatyo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
-        android:theme="@style/Theme.Harkkatyo"
         android:icon="@drawable/ic_launcher_foreground"
         android:label="Speedrun Stats"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:theme="@style/Theme.Harkkatyo"
         android:usesCleartextTraffic="true">
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/actions" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".GameSearchPage" />
         <activity android:name=".LoginPage" />
-        <activity android:name=".GamePage"/>
-        <activity android:name=".LeaderboardPage"/>
+        <activity android:name=".GamePage" />
+        <activity android:name=".LeaderboardPage" />
+        <activity android:name=".PlayerSearchPage" />
     </application>
 
 </manifest>
