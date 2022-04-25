@@ -117,7 +117,6 @@ public class LoginPage extends AppCompatActivity {
                 }
 
                 Intent intent = new Intent(LoginPage.this, MainActivity.class);
-                intent.putExtra("current_user", user.getUsername());
                 startActivity(intent);
             }
         }
@@ -163,8 +162,7 @@ public class LoginPage extends AppCompatActivity {
             User newUser = new User(usernameInput, passwordInput);
             userArrayList.add(newUser);
 
-            File userDataFile = new File(getApplicationContext().getFilesDir(), "user_data");
-            userDataFile = new File(this.getFilesDir(), "user_data");
+            File userDataFile = new File(this.getFilesDir(), "user_data.json");
 
             try {
                 wJson.writeJsonStream(new FileOutputStream(userDataFile), userArrayList);
