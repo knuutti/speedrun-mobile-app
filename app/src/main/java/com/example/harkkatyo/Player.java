@@ -26,6 +26,12 @@ public class Player {
         this.colorEnd = colorEnd;
     }
 
+    public Player(String playerId, String playerName, String country) {
+        this.playerId = playerId;
+        this.playerName = playerName;
+        this.country = country;
+    }
+
     // GETTERS AND SETTERS
 
     public String getPlayerId() {

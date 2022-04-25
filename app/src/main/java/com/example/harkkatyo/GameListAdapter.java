@@ -45,7 +45,7 @@ public class GameListAdapter extends ArrayAdapter<Game> {
             convertView = inflater.inflate(mResource, parent, false);
 
             holder = new ViewHolder();
-            holder.tvGameName = (TextView) convertView.findViewById(R.id.tv_category_name_listview);
+            holder.tvGameName = (TextView) convertView.findViewById(R.id.tv_player_name_listview);
             holder.ivCoverImage = (ImageView) convertView.findViewById(R.id.ivCoverImage);
 
             convertView.setTag(holder);

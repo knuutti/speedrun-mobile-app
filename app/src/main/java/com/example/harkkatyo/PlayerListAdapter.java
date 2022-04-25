@@ -5,23 +5,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
-public class CategoryListAdapter extends ArrayAdapter<Category> {
-
+public class PlayerListAdapter extends ArrayAdapter<Player> {
     private final Context mContext;
     private final int mResource;
 
     private static class ViewHolder {
-        TextView tvCategoryName;
+        TextView tvPlayerName;
     }
 
-    public CategoryListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Category> objects) {
+    public PlayerListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Player> objects) {
         super(context, resource, objects);
         this.mContext = context;
         this.mResource = resource;
@@ -31,26 +33,29 @@ public class CategoryListAdapter extends ArrayAdapter<Category> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        String categoryName = getItem(position).getCategoryName();
+        String playerName = getItem(position).getPlayerName();
 
-        CategoryListAdapter.ViewHolder holder;
+
+        PlayerListAdapter.ViewHolder holder;
 
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(mResource, parent, false);
 
-            holder = new CategoryListAdapter.ViewHolder();
-            holder.tvCategoryName = (TextView) convertView.findViewById(R.id.tv_player_name_listview);
+            holder = new PlayerListAdapter.ViewHolder();
+            holder.tvPlayerName = (TextView) convertView.findViewById(R.id.tv_player_name_listview);
+
 
             convertView.setTag(holder);
 
         }
         else {
-            holder = (CategoryListAdapter.ViewHolder) convertView.getTag();
+            holder = (PlayerListAdapter.ViewHolder) convertView.getTag();
         }
 
         // Setting up correct name for each game
-        holder.tvCategoryName.setText(categoryName);
+        holder.tvPlayerName.setText(playerName);
+
 
         return convertView;
     }
