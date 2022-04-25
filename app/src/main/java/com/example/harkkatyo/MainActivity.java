@@ -31,6 +31,9 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     WriteJSON wJson = WriteJSON.getInstance();
+    ReadJSON rJson = ReadJSON.getInstance();
+
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +44,17 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         setUserData();
-
+        currentUser = rJson.getCurrentUser(this);
     }
 
     public void setUserData(){
         File userDataFile = new File(getApplicationContext().getFilesDir(), "user_data");
 
         if (userDataFile.exists()) {
-            System.out.println("File exists");
+            System.out.println("User data loaded");
         }
         else {
-            System.out.println("User data does not exists, creating a file");
+            System.out.println("No user data, creating a file");
 
             // Creating a JSON file for storing all of the users
             userDataFile = new File(this.getApplicationContext().getFilesDir(), "user_data.json");
@@ -79,6 +82,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem login = menu.findItem(R.id.login);
+        if (currentUser != null) {
+            login.setTitle(currentUser.getUsername());
+        }
+        else {
+            login.setTitle("LOGIN");
+        }
         return super.onCreateOptionsMenu(menu);
     }
 

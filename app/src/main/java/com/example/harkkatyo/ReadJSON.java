@@ -1,6 +1,7 @@
 package com.example.harkkatyo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Environment;
 
 import org.json.simple.JSONArray;
@@ -16,6 +17,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -291,11 +293,35 @@ public class ReadJSON {
         return game;
     }
 
+    public User getCurrentUser(Context applicationContext) {
+        ArrayList<User> userArrayList = getUserList(applicationContext);
+        String userName = null;
+        User currentUser = null;
+
+        File file = new File(applicationContext.getFilesDir(), "current_user.txt");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            userName = br.readLine();
+            br.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (User user : userArrayList) {
+            if (userName.compareTo(user.getUsername()) == 0) {
+                currentUser = user;
+            }
+        }
+        return currentUser;
+    }
+
     public ArrayList<User> getUserList(Context applicationContext){
         ArrayList<User> userArrayList = new ArrayList<>();
 
         JSONParser parser = new JSONParser();
-        File file = new File(applicationContext.getFilesDir(), "user_data");
+        File file = new File(applicationContext.getFilesDir(), "user_data.json");
 
         try (FileReader reader = new FileReader(file))
         {
