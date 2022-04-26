@@ -7,19 +7,6 @@
     android:background="#1C1C1C">
 
 
-    <Button
-        android:id="@+id/btn_login_fingerprint"
-        android:layout_width="175dp"
-        android:layout_height="44dp"
-        android:drawableEnd="@drawable/ic_fingerprint_white"
-        android:fontFamily="@font/saicond"
-        android:text="Authentication"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_false_login_page"
-        app:layout_constraintVertical_bias="0.033" />
-
     <TextView
         android:id="@+id/tv_login_instruction_login_page"
         android:layout_width="wrap_content"
@@ -102,8 +89,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login_fingerprint"
-        app:layout_constraintVertical_bias="0.037" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_false_login_page"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tv_signup_instruction_login_page"
@@ -190,6 +177,22 @@
         app:layout_constraintVertical_bias="0.0" />
 
 
+    <Button
+        android:id="@+id/btn_signup_login_page2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="15dp"
+        android:fontFamily="@font/saicond"
+        android:onClick="logout"
+        android:text="LOG OUT"
+        app:layout_constraintBottom_toTopOf="@+id/tv_srcom_login_page"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_false_signup_page"
+        app:layout_constraintVertical_bias="1.0" />
+
     <TextView
         android:id="@+id/tv_srcom_login_page"
         android:layout_width="wrap_content"
@@ -202,23 +205,8 @@
         android:textColor="#7A7A7A"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.546" />
-
-    <Button
-        android:id="@+id/btn_signup_fingerprint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableEnd="@drawable/ic_fingerprint_white"
-        android:fontFamily="@font/saicond"
-        android:text="new Authentication"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_signup_password_login_page"
-        app:layout_constraintVertical_bias="0.153" />
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

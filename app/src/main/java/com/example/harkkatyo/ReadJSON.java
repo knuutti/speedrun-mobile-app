@@ -105,10 +105,10 @@ public class ReadJSON {
 
     // Function for searching players by the search words user gives
 
-    public ArrayList<Player> playerSearch(String searchPlayer) {
+    public ArrayList<Player> playerSearch(String searchPlayer, String param) {
         String country = "";
         ArrayList<Player> playerList = new ArrayList<>();
-        StringBuilder playerSearchUrl = new StringBuilder("https://www.speedrun.com/api/v1/users?name=");
+        StringBuilder playerSearchUrl = new StringBuilder("https://www.speedrun.com/api/v1/users?" + param + "=");
 
         String playerSearchWords = searchPlayer.replace(" ", "%20");
         playerSearchUrl.append(playerSearchWords);
@@ -410,10 +410,11 @@ public class ReadJSON {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        for (User user : userArrayList) {
-            if (userName.compareTo(user.getUsername()) == 0) {
-                currentUser = user;
+        if (userName != null) {
+            for (User user : userArrayList) {
+                if (userName.compareTo(user.getUsername()) == 0) {
+                    currentUser = user;
+                }
             }
         }
         return currentUser;
@@ -441,12 +442,12 @@ public class ReadJSON {
 
                 if (followedGames != null) {
                     for (int j = 0; j < followedGames.size(); j++) {
-                        games.add(new Game(games.get(j).toString()));
+                        games.add(new Game(followedGames.get(j).toString()));
                     }
                 }
                 if (followedPlayers != null) {
                     for (int k = 0; k < followedPlayers.size(); k++) {
-                        players.add(new Player(games.get(k).toString()));
+                        players.add(new Player(followedPlayers.get(k).toString()));
                     }
                 }
 

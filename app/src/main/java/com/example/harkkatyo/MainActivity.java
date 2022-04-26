@@ -4,24 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Switch;
-import com.bumptech.glide.Glide;
-import java.io.BufferedWriter;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
@@ -33,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     private User currentUser;
 
-    //WebView web;
+    private ListView lvFollowedGames;
+    private ListView lvFollowedPlayers;
 
 
     @Override
@@ -41,29 +34,67 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
 
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        lvFollowedGames = findViewById(R.id.lv_followed_games);
+        lvFollowedPlayers = findViewById(R.id.lv_followed_players);
+
         setUserData();
         currentUser = rJson.getCurrentUser(this);
+        if (currentUser != null) {
+            ArrayList<Game> followedGames = new ArrayList<>();
+            for (Game game : currentUser.getFollowedGames()) {
+                followedGames.add(rJson.getGameData(game.getGameId()));
+            }
+
+            ArrayList<Player> followedPlayers = new ArrayList<>();
+            for (Player player : currentUser.getFollowedPlayers()) {
+                followedPlayers.add(rJson.getPlayerData(player.getPlayerId()));
+            }
+
+            if (followedGames != null) {
+                GameListAdapter adapter = new GameListAdapter(this, R.layout.game_list_view, followedGames);
+                lvFollowedGames.setAdapter(adapter);
+            }
+
+            lvFollowedGames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(MainActivity.this, GamePage.class);
+                    intent.putExtra("gameId", followedGames.get(i).getGameId());
+                    startActivity(intent);
+                }
+            });
+
+            if (followedPlayers != null) {
+                PlayerListAdapter adapter = new PlayerListAdapter(this, R.layout.player_list_view, followedPlayers);
+                lvFollowedPlayers.setAdapter(adapter);
+            }
+
+            lvFollowedPlayers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(MainActivity.this, PlayerPage.class);
+                    intent.putExtra("playerId", followedPlayers.get(i).getPlayerId());
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     public void setUserData(){
-        File userDataFile = new File(getApplicationContext().getFilesDir(), "user_data");
+        File userDataFile = new File(getApplicationContext().getFilesDir(), "user_data.json");
 
         if (userDataFile.exists()) {
             System.out.println("User data loaded");
         }
         else {
             System.out.println("No user data, creating a file");
-
-            // Creating a JSON file for storing all of the users
-            userDataFile = new File(this.getApplicationContext().getFilesDir(), "user_data.json");
             ArrayList<User> users = new ArrayList<>();
 
             try {
-                wJson.writeJsonStream(new FileOutputStream(userDataFile), users);
+                wJson.writeJsonStream(this.getApplicationContext(), users);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -119,22 +150,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goToLoginPage(View v) {
-        Intent intent = new Intent(MainActivity.this, LoginPage.class);
-        startActivity(intent);
-    }
-
     public void goToPlayerSearchPage(View v) {
         Intent intent = new Intent(MainActivity.this, PlayerSearchPage.class);
         startActivity(intent);
     }
 
-    // TODO tää ei jostain syystä toimi, en keksinyt mitään syytä mut voi koittaa :-(
-   /*public void imageWeb(View v) {
-        web = findViewById(R.id.webView);
-        web.setWebViewClient(new WebViewClient());
-        web.getSettings().setJavaScriptEnabled(true);
-        web.loadUrl("http://www.youtube.com");
-    }*/
+   public void imageWeb(View v) {
+       Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.speedrun.com"));
+       startActivity(browserIntent);
+    }
 
 }

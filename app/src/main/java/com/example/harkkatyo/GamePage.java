@@ -16,11 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GamePage extends AppCompatActivity {
 
-    ReadJSON json = ReadJSON.getInstance();
+    ReadJSON rJson = ReadJSON.getInstance();
+    WriteJSON wJson = WriteJSON.getInstance();
 
     private Game game;
     private User user;
@@ -46,8 +48,8 @@ public class GamePage extends AppCompatActivity {
 
         Intent intent = getIntent();
         String gameId = intent.getStringExtra("gameId");
-        game = json.getGameData(gameId);
-        user = json.getCurrentUser(this);
+        game = rJson.getGameData(gameId);
+        user = rJson.getCurrentUser(this);
 
         tvGameReleaseYear = findViewById(R.id.tv_game_releaseyear_game_page);
         ivCoverImage = findViewById(R.id.iv_cover_image_game_page);
@@ -56,11 +58,16 @@ public class GamePage extends AppCompatActivity {
         ivFollowIcon = findViewById(R.id.iv_followed_game_page);
         ivUnfollowIcon = findViewById(R.id.iv_unfollowed_game_page);
 
-        ArrayList<Game> followedGames = user.getFollowedGames();
-        for (Game followedGame : followedGames) {
-            if (followedGame.getGameId().compareTo(game.getGameId()) == 0) {
-                ivFollowIcon.setVisibility(View.GONE);
-                ivUnfollowIcon.setVisibility(View.VISIBLE);
+        if (user == null) {
+            ivFollowIcon.setVisibility(View.GONE);
+        }
+        else {
+            ArrayList<Game> followedGames = user.getFollowedGames();
+            for (Game followedGame : followedGames) {
+                if (followedGame.getGameId().compareTo(game.getGameId()) == 0) {
+                    ivFollowIcon.setVisibility(View.GONE);
+                    ivUnfollowIcon.setVisibility(View.VISIBLE);
+                }
             }
         }
 
@@ -145,10 +152,40 @@ public class GamePage extends AppCompatActivity {
         });
     }
 
-    public void followGame(View v) {
-        user.addFollowedGame(game, this);
+    public void followGame(View v) throws IOException {
+        user.addFollowedGame(game);
+        ArrayList<User> userArrayList = rJson.getUserList(this);
+        for (int i = 0 ; i < userArrayList.size() ; i++) {
+            if (user.getUsername().compareTo(userArrayList.get(i).getUsername()) == 0) {
+                userArrayList.remove(i);
+            }
+        }
+        userArrayList.add(user);
+        wJson.writeJsonStream(this, userArrayList);
+
         ivUnfollowIcon.setVisibility(View.VISIBLE);
         ivFollowIcon.setVisibility(View.GONE);
+    }
+
+    public void unFollowGame(View v) throws IOException {
+        ArrayList<Game> userFollowedGames = user.getFollowedGames();
+        for (int i = 0 ; i < userFollowedGames.size() ; i++) {
+            if (game.getGameId().compareTo(userFollowedGames.get(i).getGameId()) == 0) {
+                userFollowedGames.remove(i);
+                user.setFollowedGames(userFollowedGames);
+            }
+        }
+        ArrayList<User> userArrayList = rJson.getUserList(this);
+        for (int i = 0 ; i < userArrayList.size() ; i++) {
+            if (user.getUsername().compareTo(userArrayList.get(i).getUsername()) == 0) {
+                userArrayList.remove(i);
+            }
+        }
+        userArrayList.add(user);
+        wJson.writeJsonStream(this, userArrayList);
+
+        ivUnfollowIcon.setVisibility(View.GONE);
+        ivFollowIcon.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -59,8 +59,11 @@ public class User {
         this.followedPlayers = followedPlayers;
     }
 
-    public void addFollowedGame(Game game, Context context) {
+    public void addFollowedGame(Game game) {
         this.followedGames.add(game);
-        wJson.addFollowedGame(context, this.getUsername(), game.getGameId());
+    }
+
+    public void addFollowedPlayer(Player player) {
+        this.followedPlayers.add(player);
     }
 }

@@ -50,7 +50,10 @@ public class PlayerSearchPage extends AppCompatActivity {
 
     public void searchPlayers(View v) {
         if (etPlayerSearch.getText() != null) {
-            playerList = json.playerSearch(etPlayerSearch.getText().toString());
+            playerList = json.playerSearch(etPlayerSearch.getText().toString(), "lookup");
+            if (playerList.size() != 1) {
+                playerList.addAll(json.playerSearch(etPlayerSearch.getText().toString(), "name"));
+            }
             setPlayerList();
         }
     }

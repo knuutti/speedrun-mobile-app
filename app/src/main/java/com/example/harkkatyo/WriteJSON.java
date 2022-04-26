@@ -10,6 +10,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -29,40 +30,12 @@ public class WriteJSON {
         return writeJSON;
     }
 
-    public void writeJsonStream(OutputStream out, ArrayList<User> users) throws IOException {
-        JsonWriter writer = new JsonWriter(new OutputStreamWriter(out, "UTF-8"));
+    public void writeJsonStream(Context context, ArrayList<User> users) throws IOException {
+        File file = new File(context.getFilesDir(), "user_data.json");
+        JsonWriter writer = new JsonWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
         writer.setIndent("  ");
         writeUsersArray(writer, users);
         writer.close();
-    }
-
-    public void addFollowedGame(Context context, String username, String gameId) {
-        JSONParser parser = new JSONParser();
-        File file = new File(context.getFilesDir(), "user_data.json");
-
-        try (FileReader reader = new FileReader(file))
-        {
-            JSONArray obj = (JSONArray) parser.parse(reader);
-
-            for (int i = 0 ; i < obj.size() ; i++) {
-                JSONObject user = (JSONObject) obj.get(i);
-                String usernameInstance = user.get("username").toString();
-                if (usernameInstance.compareTo(username) == 0) {
-                    JSONArray followedGames = (JSONArray) user.get("followed_games");
-                    JSONObject j1 = new JSONObject();
-                    j1.put("id", gameId);
-                    followedGames.add(j1);
-                }
-            }
-
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
     }
 
     public void writeUsersArray(JsonWriter writer, ArrayList<User> users) throws IOException {

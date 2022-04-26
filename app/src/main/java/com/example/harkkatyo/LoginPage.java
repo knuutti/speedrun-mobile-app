@@ -140,6 +140,20 @@ public class LoginPage extends AppCompatActivity {
 
     }
 
+    public void logout (View v) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(this.openFileOutput("current_user.txt", Context.MODE_PRIVATE));
+            outputStreamWriter.write("");
+            outputStreamWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Intent intent = new Intent(LoginPage.this, MainActivity.class);
+        intent.putExtra("current_user", "LOGIN");
+        startActivity(intent);
+    }
+
     public void signUp (View v) {
         usernameInput = usernameSignUp.getText().toString();
         passwordInput = passwordSignUp.getText().toString();
@@ -181,7 +195,7 @@ public class LoginPage extends AppCompatActivity {
             File userDataFile = new File(this.getFilesDir(), "user_data.json");
 
             try {
-                wJson.writeJsonStream(new FileOutputStream(userDataFile), userArrayList);
+                wJson.writeJsonStream(this, userArrayList);
             } catch (IOException e) {
                 e.printStackTrace();
             }
