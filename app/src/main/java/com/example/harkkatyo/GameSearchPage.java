@@ -54,13 +54,14 @@ public class GameSearchPage extends AppCompatActivity {
 
     // Method for searching games based on user input
     public void searchGames(View v) {
-        if (sUnofficialReleases.isChecked() == false) {
-            gameList = rJson.gameSearch(etGameSearch.getText().toString() + "&romhack=false");
+        if (etGameSearch.getText() != null) {
+            if (sUnofficialReleases.isChecked() == false) {
+                gameList = rJson.gameSearch(etGameSearch.getText().toString() + "&romhack=false");
+            } else {
+                gameList = rJson.gameSearch(etGameSearch.getText().toString());
+            }
+            setGameList();
         }
-        else {
-            gameList = rJson.gameSearch(etGameSearch.getText().toString());
-        }
-        setGameList();
     }
 
     // Method for updating the list of games shown

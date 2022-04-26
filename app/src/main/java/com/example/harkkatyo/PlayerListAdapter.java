@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 public class PlayerListAdapter extends ArrayAdapter<Player> {
+
     private final Context mContext;
     private final int mResource;
 
@@ -36,7 +37,7 @@ public class PlayerListAdapter extends ArrayAdapter<Player> {
         String playerName = getItem(position).getPlayerName();
 
 
-        PlayerListAdapter.ViewHolder holder;
+        ViewHolder holder;
 
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(mContext);

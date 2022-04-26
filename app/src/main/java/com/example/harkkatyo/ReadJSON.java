@@ -106,7 +106,6 @@ public class ReadJSON {
     // Function for searching players by the search words user gives
 
     public ArrayList<Player> playerSearch(String searchPlayer) {
-        System.out.println("napin painallus onnistunut!");
         String country = "";
         ArrayList<Player> playerList = new ArrayList<>();
         StringBuilder playerSearchUrl = new StringBuilder("https://www.speedrun.com/api/v1/users?name=");
@@ -115,14 +114,13 @@ public class ReadJSON {
         playerSearchUrl.append(playerSearchWords);
 
         String playerSearchResult = JsonToString(playerSearchUrl.toString());
-
         if ((playerSearchResult) != null) {
             try {
                 JSONParser playerParser = new JSONParser();
                 JSONObject playerObj = (JSONObject) playerParser.parse(playerSearchResult);
                 JSONArray playerData = (JSONArray) playerObj.get("data");
 
-                for (int i = 0; i < playerData.size() ; i++) {
+                for (int i = 0 ; i < playerData.size() ; i++) {
                     JSONObject playerInstance = (JSONObject) playerData.get(i);
 
                     String playerId = playerInstance.get("id").toString();
@@ -134,19 +132,15 @@ public class ReadJSON {
                         JSONObject countryNames = (JSONObject) countryjson.get("names");
                         country = countryNames.get("international").toString();
                     }
-                    //String country = "Fin";
-                    System.out.println("country is " + country);
                     Player player = new Player(playerId, playerName, country);
                     playerList.add(player);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
         }
-
+        System.out.println("TAKAISIN");
         return playerList;
-
     }
 
     public ArrayList<Run> getLeaderboardData(String uri){
