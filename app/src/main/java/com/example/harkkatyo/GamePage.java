@@ -23,6 +23,7 @@ public class GamePage extends AppCompatActivity {
     ReadJSON json = ReadJSON.getInstance();
 
     private Game game;
+    private User user;
 
     private ImageView ivCoverImage;
     private TextView tvGameName;
@@ -31,6 +32,8 @@ public class GamePage extends AppCompatActivity {
     private TextView tvGameDeveloper;
     private ListView lvCategoryList;
     private ListView lvLevelList;
+    private ImageView ivFollowIcon;
+    private ImageView ivUnfollowIcon;
     private TabLayout tlType;
 
     @Override
@@ -44,11 +47,22 @@ public class GamePage extends AppCompatActivity {
         Intent intent = getIntent();
         String gameId = intent.getStringExtra("gameId");
         game = json.getGameData(gameId);
+        user = json.getCurrentUser(this);
 
         tvGameReleaseYear = findViewById(R.id.tv_game_releaseyear_game_page);
         ivCoverImage = findViewById(R.id.iv_cover_image_game_page);
         tvGameName = findViewById(R.id.tv_game_name_game_page);
         tvGameDeveloper = findViewById(R.id.tv_game_developer_game_page);
+        ivFollowIcon = findViewById(R.id.iv_followed_game_page);
+        ivUnfollowIcon = findViewById(R.id.iv_unfollowed_game_page);
+
+        ArrayList<Game> followedGames = user.getFollowedGames();
+        for (Game followedGame : followedGames) {
+            if (followedGame.getGameId().compareTo(game.getGameId()) == 0) {
+                ivFollowIcon.setVisibility(View.GONE);
+                ivUnfollowIcon.setVisibility(View.VISIBLE);
+            }
+        }
 
 
         setListViews();
@@ -129,6 +143,12 @@ public class GamePage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public void followGame(View v) {
+        user.addFollowedGame(game, this);
+        ivUnfollowIcon.setVisibility(View.VISIBLE);
+        ivFollowIcon.setVisibility(View.GONE);
     }
 
     @Override

@@ -1,7 +1,16 @@
 package com.example.harkkatyo;
 
+import android.content.Context;
 import android.util.JsonWriter;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -25,6 +34,35 @@ public class WriteJSON {
         writer.setIndent("  ");
         writeUsersArray(writer, users);
         writer.close();
+    }
+
+    public void addFollowedGame(Context context, String username, String gameId) {
+        JSONParser parser = new JSONParser();
+        File file = new File(context.getFilesDir(), "user_data.json");
+
+        try (FileReader reader = new FileReader(file))
+        {
+            JSONArray obj = (JSONArray) parser.parse(reader);
+
+            for (int i = 0 ; i < obj.size() ; i++) {
+                JSONObject user = (JSONObject) obj.get(i);
+                String usernameInstance = user.get("username").toString();
+                if (usernameInstance.compareTo(username) == 0) {
+                    JSONArray followedGames = (JSONArray) user.get("followed_games");
+                    JSONObject j1 = new JSONObject();
+                    j1.put("id", gameId);
+                    followedGames.add(j1);
+                }
+            }
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public void writeUsersArray(JsonWriter writer, ArrayList<User> users) throws IOException {

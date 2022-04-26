@@ -12,14 +12,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ecd8322-fd8c-495b-b80d-0c0b0dadb56c" name="Default Changelist" comment="Added conditions for passwords and usernames">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="8ecd8322-fd8c-495b-b80d-0c0b0dadb56c" name="Default Changelist" comment="Fixed player search">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/GameSearchPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/GameSearchPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/PlayerListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/PlayerListAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/PlayerSearchPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/PlayerSearchPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/ReadJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/ReadJSON.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/player_search_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/player_search_page.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/GamePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/GamePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/WriteJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/WriteJSON.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/game_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/game_page.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +202,13 @@
       <option name="presentableId" value="LOCAL−00009" />
       <updated>1650800683701</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL−00010" summary="Fixed player search">
+      <created>1650965030980</created>
+      <option name="number" value="LOCAL−00010" />
+      <option name="presentableId" value="LOCAL−00010" />
+      <updated>1650965030980</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -229,6 +233,7 @@
     <MESSAGE value="Added more stuff" />
     <MESSAGE value="Made it possible to view Minecraft runs (aka. leaderboards with a LOT of runs)" />
     <MESSAGE value="Added conditions for passwords and usernames" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added conditions for passwords and usernames" />
+    <MESSAGE value="Fixed player search" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed player search" />
   </component>
 </project>
