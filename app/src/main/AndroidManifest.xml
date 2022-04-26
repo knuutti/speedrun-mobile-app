@@ -28,6 +28,7 @@
         <activity android:name=".GameSearchPage" />
         <activity android:name=".LoginPage" />
         <activity android:name=".GamePage" />
+        <activity android:name=".PlayerPage" />
         <activity android:name=".LeaderboardPage" />
         <activity android:name=".PlayerSearchPage" />
     </application>

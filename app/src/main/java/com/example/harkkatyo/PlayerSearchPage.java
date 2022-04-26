@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -36,6 +37,15 @@ public class PlayerSearchPage extends AppCompatActivity {
 
         etPlayerSearch = findViewById(R.id.etPlayerSearch);
         lvPlayerList = findViewById(R.id.lvPlayerList);
+
+        lvPlayerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(PlayerSearchPage.this, PlayerPage.class);
+                intent.putExtra("playerId", playerList.get(i).getPlayerId());
+                startActivity(intent);
+            }
+        });
     }
 
     public void searchPlayers(View v) {

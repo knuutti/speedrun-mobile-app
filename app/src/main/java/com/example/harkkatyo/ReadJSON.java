@@ -387,20 +387,20 @@ public class ReadJSON {
             }
 
 
-
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         Player player = new Player(playerId, playerName, countryCode, colorFrom, colorTo, webLink, countryName, twitchAcc, youtubeAcc);
         return player;
+    }
 
-    public User getCurrentUser(Context applicationContext) {
-        ArrayList<User> userArrayList = getUserList(applicationContext);
+    public User getCurrentUser(Context context) {
+        ArrayList<User> userArrayList = getUserList(context);
         String userName = null;
         User currentUser = null;
 
-        File file = new File(applicationContext.getFilesDir(), "current_user.txt");
+        File file = new File(context.getFilesDir(), "current_user.txt");
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             userName = br.readLine();
