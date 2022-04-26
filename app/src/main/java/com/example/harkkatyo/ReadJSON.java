@@ -352,8 +352,8 @@ public class ReadJSON {
             JSONObject data = (JSONObject) obj.get("data");
 
             JSONObject names = (JSONObject) data.get("names");
-            String playerName = names.get("international").toString();
-            String webLink = data.get("weblink").toString();
+            playerName = names.get("international").toString();
+            webLink = data.get("weblink").toString();
 
             JSONObject nameStyle = (JSONObject) data.get("name-style");
 
@@ -378,15 +378,15 @@ public class ReadJSON {
                 countryName = null;
             }
 
-            JSONObject twitch = data.get("twitch");
+            JSONObject twitch = (JSONObject) data.get("twitch");
             if (twitch != null) {
                 twitchAcc = twitch.get("uri").toString();
             }
 
 
-            JSONObject youtube = data.get("youtube");
+            JSONObject youtube = (JSONObject) data.get("youtube");
             if (youtube != null) {
-                String youtubeAcc = youtube.get("uri").toString();
+                youtubeAcc = youtube.get("uri").toString();
             }
 
 

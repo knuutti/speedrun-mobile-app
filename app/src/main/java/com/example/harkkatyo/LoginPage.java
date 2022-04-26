@@ -46,10 +46,6 @@ public class LoginPage extends AppCompatActivity {
 
     private String usernameInput;
     private String passwordInput;
-    private Executor executor;
-    private BiometricPrompt biometricPrompt;
-    private BiometricPrompt.PromptInfo promptInfo;
-    private BiometricPrompt.PromptInfo promptInfo2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,61 +68,7 @@ public class LoginPage extends AppCompatActivity {
         falseSignup.setVisibility(View.GONE);
         falseLogin.setVisibility(View.GONE);
 
-        executor = ContextCompat.getMainExecutor(this);
-        biometricPrompt = new BiometricPrompt(LoginPage.this, executor, new BiometricPrompt.AuthenticationCallback() {
-            @Override
-            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
-                super.onAuthenticationError(errorCode, errString);
-                Toast.makeText(getApplicationContext(),
-                        "Authentication error: " + errString, Toast.LENGTH_SHORT)
-                        .show();
 
-            }
-
-            @Override
-            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-                super.onAuthenticationSucceeded(result);
-                //TODO Tähän lisätään kirjautumisen onnistumisen jälkeinen käsky eli mitä tehdään seuraavaksi
-                Toast.makeText(getApplicationContext(),
-                        "Authentication succeeded!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onAuthenticationFailed() {
-                super.onAuthenticationFailed();
-                Toast.makeText(getApplicationContext(), "Authentication failed",
-                        Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });
-
-        promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Biometric Authentication")
-                .setSubtitle("Login using your fingerprint")
-                .setNegativeButtonText("Use account password")
-                .setConfirmationRequired(false)
-                .build();
-
-        fingerPrintLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                biometricPrompt.authenticate(promptInfo);
-            }
-        });
-
-        promptInfo2 = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Biometric Authentication")
-                .setSubtitle("Signup using your fingerprint")
-                .setNegativeButtonText("Use account password")
-                .build();
-
-        fingerPrintSignUpBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                biometricPrompt.authenticate(promptInfo2);
-            }
-            // TODO Jos ymmärrän että miten tää toimii nii pärjätään varmaan yhdellä nappulalla
-        });
 
     }
 

@@ -54,7 +54,7 @@ public class PlayerPage extends AppCompatActivity {
         tvPlayerName.getPaint().setShader(textShader);
 
         if (player.getTwitchAcc() != null) {
-            tvTwitchLink.setText("Twitchlink: " + player.getTwitchApp());
+            tvTwitchLink.setText("Twitchlink: " + player.getTwitchAcc());
         }
 
         if (player.getYoutubeAcc() != null) {
@@ -71,17 +71,17 @@ public class PlayerPage extends AppCompatActivity {
     }
 
     public void openTwitchLink(View v) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(player.getTwitchAcc());
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(player.getTwitchAcc()));
         startActivity(browserIntent);
     }
 
     public void openYoutubeLink(View v) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(player.getYoutubeAcc());
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(player.getYoutubeAcc()));
         startActivity(browserIntent);
     }
 
     public void openWebLink(View v) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(player.getWebLink());
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(player.getWebLink()));
         startActivity(browserIntent);
     }
 

@@ -49,7 +49,6 @@ public class Player {
         this.youtubeAcc = youtubeAcc;
     }
 
-    public Player()
 
     // GETTERS AND SETTERS
 
