@@ -45,7 +45,7 @@ public class LeaderboardAdapter extends ArrayAdapter<Run> {
         String trophyUrl = getItem(position).getTrophyUrl();
         String playerName = getItem(position).getPlayer().getPlayerName();
         String time = getItem(position).getTime();
-        String flagUrl = "https://www.speedrun.com/images/flags/" + getItem(position).getPlayer().getCountry() + ".png";
+        String flagUrl = "https://www.speedrun.com/images/flags/" + getItem(position).getPlayer().getCountryCode() + ".png";
         String colorStart = getItem(position).getPlayer().getColorStart();
         String colorEnd = getItem(position).getPlayer().getColorEnd();
 

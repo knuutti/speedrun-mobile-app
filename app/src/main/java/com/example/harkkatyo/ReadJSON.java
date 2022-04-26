@@ -71,7 +71,6 @@ public class ReadJSON {
         searchUrl.append(newSearchWords);
 
         String searchResult = JsonToString(searchUrl.toString());
-
         if (searchResult != null) {
             try {
                 JSONParser parser = new JSONParser();
@@ -100,6 +99,52 @@ public class ReadJSON {
         }
 
         return gameList;
+    }
+
+    // Function for searching players by the search words user gives
+
+    public ArrayList<Player> playerSearch(String searchPlayer) {
+        System.out.println("napin painallus onnistunut!");
+        String country = "";
+        ArrayList<Player> playerList = new ArrayList<>();
+        StringBuilder playerSearchUrl = new StringBuilder("https://www.speedrun.com/api/v1/users?name=");
+
+        String playerSearchWords = searchPlayer.replace(" ", "%20");
+        playerSearchUrl.append(playerSearchWords);
+
+        String playerSearchResult = JsonToString(playerSearchUrl.toString());
+
+        if ((playerSearchResult) != null) {
+            try {
+                JSONParser playerParser = new JSONParser();
+                JSONObject playerObj = (JSONObject) playerParser.parse(playerSearchResult);
+                JSONArray playerData = (JSONArray) playerObj.get("data");
+
+                for (int i = 0; i < playerData.size() ; i++) {
+                    JSONObject playerInstance = (JSONObject) playerData.get(i);
+
+                    String playerId = playerInstance.get("id").toString();
+                    JSONObject playerNames = (JSONObject) playerInstance.get("names");
+                    String playerName = playerNames.get("international").toString();
+                    JSONObject location = (JSONObject) playerInstance.get("location");
+                    if (location != null) {
+                        JSONObject countryjson = (JSONObject) location.get("country");
+                        JSONObject countryNames = (JSONObject) countryjson.get("names");
+                        country = countryNames.get("international").toString();
+                    }
+                    //String country = "Fin";
+                    System.out.println("country is " + country);
+                    Player player = new Player(playerId, playerName, country);
+                    playerList.add(player);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return playerList;
+
     }
 
     public ArrayList<Run> getLeaderboardData(String uri){
@@ -291,6 +336,69 @@ public class ReadJSON {
         return game;
     }
 
+    public Player getPlayerData(String playerId) {
+        String playerJSON = JsonToString("https://www.speedrun.com/api/v1/users/" + playerId);
+        String playerName = null;
+        String countryCode = "default";
+        String colorFrom = "#FFFFFF";
+        String colorTo = "#FFFFFF";
+        String webLink = null;
+        String countryName = null;
+        String twitchAcc = null;
+        String youtubeAcc = null;
+        try {
+            JSONParser parser = new JSONParser();
+            JSONObject obj = (JSONObject) parser.parse(playerJSON);
+            JSONObject data = (JSONObject) obj.get("data");
+
+            JSONObject names = (JSONObject) data.get("names");
+            String playerName = names.get("international").toString();
+            String webLink = data.get("weblink").toString();
+
+            JSONObject nameStyle = (JSONObject) data.get("name-style");
+
+            if (nameStyle.get("style").toString().compareTo("gradient") == 0) {
+                JSONObject colorF = (JSONObject) nameStyle.get("color-from");
+                JSONObject colorT = (JSONObject) nameStyle.get("color-to");
+                colorFrom = colorF.get("dark").toString();
+                colorTo = colorT.get("dark").toString();
+            } else if (nameStyle.get("style").toString().compareTo("solid") == 0) {
+                JSONObject colorObj = (JSONObject) nameStyle.get("color");
+                colorFrom = colorObj.get("dark").toString();
+                colorTo = colorFrom;
+            }
+
+            JSONObject location = (JSONObject) data.get("location");
+            if (location != null) {
+                JSONObject countryInfo = (JSONObject) location.get("country");
+                countryCode = countryInfo.get("code").toString();
+                JSONObject countryNames = (JSONObject) countryInfo.get("names");
+                countryName = countryNames.get("international").toString();
+            } else {
+                countryName = null;
+            }
+
+            JSONObject twitch = data.get("twitch");
+            if (twitch != null) {
+                twitchAcc = twitch.get("uri").toString();
+            }
+
+
+            JSONObject youtube = data.get("youtube");
+            if (youtube != null) {
+                String youtubeAcc = youtube.get("uri").toString();
+            }
+
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Player player = new Player(playerId, playerName, countryCode, colorFrom, colorTo, webLink, countryName, twitchAcc, youtubeAcc);
+        return player;
+    }
+
     public ArrayList<User> getUserList(Context applicationContext){
         ArrayList<User> userArrayList = new ArrayList<>();
 
@@ -336,5 +444,7 @@ public class ReadJSON {
 
         return userArrayList;
     }
+
+
 
 }
