@@ -1,8 +1,15 @@
 package com.example.harkkatyo;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -32,14 +39,59 @@ public class PlayerSearchPage extends AppCompatActivity {
     }
 
     public void searchPlayers(View v) {
-        playerList = json.playerSearch(etPlayerSearch.getText().toString());
-        setPlayerList();
+        if (etPlayerSearch.getText() != null) {
+            playerList = json.playerSearch(etPlayerSearch.getText().toString());
+            setPlayerList();
+        }
     }
 
     private void setPlayerList(){
         if (playerList != null) {
             PlayerListAdapter adapter = new PlayerListAdapter(this, R.layout.player_list_view, playerList);
             lvPlayerList.setAdapter(adapter);
+        }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if ( v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home:
+                Intent homeIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(homeIntent);
+                return true;
+            case R.id.search:
+                Intent searchIntent = new Intent(getApplicationContext(), GameSearchPage.class);
+                startActivity(searchIntent);
+                return true;
+            case R.id.login:
+                Intent loginIntent = new Intent(getApplicationContext(), LoginPage.class);
+                startActivity(loginIntent);
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 

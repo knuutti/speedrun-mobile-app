@@ -1,8 +1,12 @@
 package com.example.harkkatyo;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 public class User {
+
+    WriteJSON wJson = WriteJSON.getInstance();
 
     private String username;
     private String password;
@@ -53,5 +57,10 @@ public class User {
 
     public void setFollowedPlayers(ArrayList<Player> followedPlayers) {
         this.followedPlayers = followedPlayers;
+    }
+
+    public void addFollowedGame(Game game, Context context) {
+        this.followedGames.add(game);
+        wJson.addFollowedGame(context, this.getUsername(), game.getGameId());
     }
 }

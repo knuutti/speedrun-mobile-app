@@ -7,39 +7,43 @@
     android:background="#1C1C1C"
     tools:context=".PlayerSearchPage">
 
-
     <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="47dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="16dp"
+        android:id="@+id/bSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="15dp"
         android:background="#2E2E2E"
         android:backgroundTint="#2E2E2E"
+        android:foregroundTint="#FFFFFF"
+        android:minWidth="48dp"
         android:onClick="searchPlayers"
         app:layout_constraintBottom_toBottomOf="@+id/etPlayerSearch"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.706"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/etPlayerSearch"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/search_icon" />
+        app:srcCompat="@android:drawable/ic_menu_search"
+        app:tint="#FFFFFF"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
         android:id="@+id/etPlayerSearch"
-        android:layout_width="242dp"
-        android:layout_height="45dp"
+        android:layout_width="335dp"
+        android:layout_height="48dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
         android:background="#2E2E2E"
         android:fontFamily="@font/saicond"
-        android:hint="Search players:"
+        android:hint="Search for players:"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        android:onClick="searchPlayers"
         android:padding="10dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#838383"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintEnd_toStartOf="@+id/bSearch"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -47,8 +51,12 @@
 
     <ListView
         android:id="@+id/lvPlayerList"
-        android:layout_width="373dp"
-        android:layout_height="575dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
         android:choiceMode="singleChoice"
         android:clickable="true"
         android:divider="@color/transparent"
@@ -57,9 +65,7 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.394"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPlayerSearch"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/etPlayerSearch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.harkkatyo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Environment;
 
 import org.json.simple.JSONArray;
@@ -16,6 +17,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -104,7 +106,6 @@ public class ReadJSON {
     // Function for searching players by the search words user gives
 
     public ArrayList<Player> playerSearch(String searchPlayer) {
-        System.out.println("napin painallus onnistunut!");
         String country = "";
         ArrayList<Player> playerList = new ArrayList<>();
         StringBuilder playerSearchUrl = new StringBuilder("https://www.speedrun.com/api/v1/users?name=");
@@ -113,14 +114,13 @@ public class ReadJSON {
         playerSearchUrl.append(playerSearchWords);
 
         String playerSearchResult = JsonToString(playerSearchUrl.toString());
-
         if ((playerSearchResult) != null) {
             try {
                 JSONParser playerParser = new JSONParser();
                 JSONObject playerObj = (JSONObject) playerParser.parse(playerSearchResult);
                 JSONArray playerData = (JSONArray) playerObj.get("data");
 
-                for (int i = 0; i < playerData.size() ; i++) {
+                for (int i = 0 ; i < playerData.size() ; i++) {
                     JSONObject playerInstance = (JSONObject) playerData.get(i);
 
                     String playerId = playerInstance.get("id").toString();
@@ -132,19 +132,15 @@ public class ReadJSON {
                         JSONObject countryNames = (JSONObject) countryjson.get("names");
                         country = countryNames.get("international").toString();
                     }
-                    //String country = "Fin";
-                    System.out.println("country is " + country);
                     Player player = new Player(playerId, playerName, country);
                     playerList.add(player);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
         }
-
+        System.out.println("TAKAISIN");
         return playerList;
-
     }
 
     public ArrayList<Run> getLeaderboardData(String uri){
@@ -336,6 +332,7 @@ public class ReadJSON {
         return game;
     }
 
+
     public Player getPlayerData(String playerId) {
         String playerJSON = JsonToString("https://www.speedrun.com/api/v1/users/" + playerId);
         String playerName = null;
@@ -397,13 +394,37 @@ public class ReadJSON {
 
         Player player = new Player(playerId, playerName, countryCode, colorFrom, colorTo, webLink, countryName, twitchAcc, youtubeAcc);
         return player;
+
+    public User getCurrentUser(Context applicationContext) {
+        ArrayList<User> userArrayList = getUserList(applicationContext);
+        String userName = null;
+        User currentUser = null;
+
+        File file = new File(applicationContext.getFilesDir(), "current_user.txt");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            userName = br.readLine();
+            br.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (User user : userArrayList) {
+            if (userName.compareTo(user.getUsername()) == 0) {
+                currentUser = user;
+            }
+        }
+        return currentUser;
+
     }
 
     public ArrayList<User> getUserList(Context applicationContext){
         ArrayList<User> userArrayList = new ArrayList<>();
 
         JSONParser parser = new JSONParser();
-        File file = new File(applicationContext.getFilesDir(), "user_data");
+        File file = new File(applicationContext.getFilesDir(), "user_data.json");
 
         try (FileReader reader = new FileReader(file))
         {

@@ -13,29 +13,6 @@
   </component>
   <component name="ChangeListManager">
 
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/app/proguard-rules.pro" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/example/harkkatyo/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/example/harkkatyo/ExampleInstrumentedTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/CategoryListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/CategoryListAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/GameListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/GameListAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/GamePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/GamePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/GameSearchPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/GameSearchPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/LeaderboardAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/LeaderboardAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/LeaderboardPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/LeaderboardPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/Level.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/LevelListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/LevelListAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/LoginPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/LoginPage.java" afterDir="false" />
-
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/PlayerListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/PlayerListAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/PlayerSearchPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/PlayerSearchPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/ReadJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/ReadJSON.java" afterDir="false" />
-
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +40,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="eetu1-oksa" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -218,13 +195,19 @@
       <option name="presentableId" value="LOCAL−00008" />
       <updated>1650370496491</updated>
     </task>
-    <task id="LOCAL−00009" summary="Added fingerprint login almost">
-      <created>1650634706541</created>
+    <task id="LOCAL−00009" summary="Added conditions for passwords and usernames">
+      <created>1650800683701</created>
       <option name="number" value="LOCAL−00009" />
       <option name="presentableId" value="LOCAL−00009" />
-      <updated>1650634706541</updated>
+      <updated>1650800683701</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL−00010" summary="Fixed player search">
+      <created>1650965030980</created>
+      <option name="number" value="LOCAL−00010" />
+      <option name="presentableId" value="LOCAL−00010" />
+      <updated>1650965030980</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -248,7 +231,10 @@
     <MESSAGE value="Added stuff" />
     <MESSAGE value="Added more stuff" />
     <MESSAGE value="Made it possible to view Minecraft runs (aka. leaderboards with a LOT of runs)" />
-    <MESSAGE value="Added fingerprint login almost" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added fingerprint login almost" />
+
+    <MESSAGE value="Added conditions for passwords and usernames" />
+    <MESSAGE value="Fixed player search" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed player search" />
+
   </component>
 </project>
