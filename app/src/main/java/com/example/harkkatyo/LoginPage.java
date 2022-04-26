@@ -3,6 +3,10 @@ package com.example.harkkatyo;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+
+import androidx.annotation.NonNull;
+import androidx.biometric.BiometricPrompt;
+
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
@@ -10,16 +14,21 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
+
 
 public class LoginPage extends AppCompatActivity {
 
@@ -31,7 +40,9 @@ public class LoginPage extends AppCompatActivity {
     private EditText passwordLogin;
     private EditText passwordSignUp;
     private TextView falseLogin;
+
     private TextView falseSignup;
+
 
     private String usernameInput;
     private String passwordInput;
@@ -44,15 +55,20 @@ public class LoginPage extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+
         usernameLogin = findViewById(R.id.et_login_username_login_page);
         usernameSignUp = findViewById(R.id.et_signup_username_login_page);
         passwordLogin = findViewById(R.id.et_login_password_login_page);
         passwordSignUp = findViewById(R.id.et_signup_password_login_page);
         falseLogin = findViewById(R.id.tv_false_login_page);
+
         falseSignup = findViewById(R.id.tv_false_signup_page);
+
 
         falseSignup.setVisibility(View.GONE);
         falseLogin.setVisibility(View.GONE);
+
+
 
     }
 

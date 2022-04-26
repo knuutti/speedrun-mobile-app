@@ -12,19 +12,16 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ecd8322-fd8c-495b-b80d-0c0b0dadb56c" name="Default Changelist" comment="Fixed player search">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/GamePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/GamePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/WriteJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/harkkatyo/WriteJSON.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/game_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/game_page.xml" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\eknut\.android\avd\Pixel_2_API_30_1.avd]" />
+
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\veeti\.android\avd\Nexus_6_API_30.avd]" />
+
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -47,6 +44,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectId" id="27T5Y6idR22ZezpLqEeb0Vfy8R9" />
   <component name="ProjectLevelVcsManager">
@@ -66,6 +64,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\eddyp\OneDrive\Tiedostot\GitHub\Harkkatyo\app\src\main\res\layout" />
       <recent name="C:\Users\eknut\GitHub\Harkkatyo\app\src\main\res\layout" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -232,8 +231,10 @@
     <MESSAGE value="Added stuff" />
     <MESSAGE value="Added more stuff" />
     <MESSAGE value="Made it possible to view Minecraft runs (aka. leaderboards with a LOT of runs)" />
+
     <MESSAGE value="Added conditions for passwords and usernames" />
     <MESSAGE value="Fixed player search" />
     <option name="LAST_COMMIT_MESSAGE" value="Fixed player search" />
+
   </component>
 </project>
