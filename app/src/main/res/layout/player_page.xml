@@ -56,13 +56,35 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
         android:fontFamily="@font/saicond"
+        android:onClick="openWebLink"
+        android:textColor="#FFFFFF"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+<<<<<<< Updated upstream
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_player_weblink_player_page"
+=======
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_player_location_player_page"
+        app:layout_constraintTop_toBottomOf="@+id/tv_player_location_player_page"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_player_youtube_player_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/saicond"
         android:onClick="openYoutubeLink"
         android:textColor="#FFFFFF"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_player_weblink_player_page"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_player_location_player_page"
+        app:layout_constraintTop_toBottomOf="@+id/tv_player_speedrun_player_page"
+>>>>>>> Stashed changes
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView

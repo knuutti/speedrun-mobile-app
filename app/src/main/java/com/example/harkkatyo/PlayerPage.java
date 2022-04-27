@@ -54,11 +54,19 @@ public class PlayerPage extends AppCompatActivity {
         tvPlayerName.getPaint().setShader(textShader);
 
         if (player.getTwitchAcc() != null) {
+<<<<<<< Updated upstream
             tvTwitchLink.setText("Twitchlink: " + player.getTwitchApp());
         }
 
         if (player.getYoutubeAcc() != null) {
             tvYoutubeLink.setText("YoutubeLink: " + player.getYoutubeAcc());
+=======
+            tvTwitchLink.setText("View profile on Twitch");
+        }
+
+        if (player.getYoutubeAcc() != null) {
+            tvYoutubeLink.setText("View profile on Youtube");
+>>>>>>> Stashed changes
         }
 
         tvWebLink.setText("WebLink: " + player.getWebLink());
