@@ -3,4 +3,4 @@ DOG.java-ryhmän harkkatyörepository. Projektissa tehdään speedrun.com sivust
 
 Ryhmän jäsenet: Eetu Knutars, Eetu Peltola, Veeti Rajaniemi
 
-Tarkempi dokumentaatio: https://drive.google.com/file/d/1neBvbm1NlCh0I8heSmjhrJ4FT0-NPomH/view?usp=sharing
+Demovideo: https://youtu.be/oG0oYchrOus
