@@ -1,3 +1,9 @@
+/* CategoryListAdapter.java
+
+This code file is for displaying categories in a ListView in a desired way (extending ArrayAdapter)
+
+*/
+
 package com.example.harkkatyo;
 
 import android.content.Context;

@@ -1,3 +1,9 @@
+/* PlayerSearchPage.java
+
+This code file defines the functionality of the search page for players
+
+*/
+
 package com.example.harkkatyo;
 
 import android.content.Context;
@@ -20,10 +26,12 @@ import java.util.ArrayList;
 
 public class PlayerSearchPage extends AppCompatActivity {
 
-    ReadJSON json = ReadJSON.getInstance();
+    ReadJSON rJson = ReadJSON.getInstance();
 
     private EditText etPlayerSearch;
     private ListView lvPlayerList;
+
+    private User currentUser;
 
     private ArrayList<Player> playerList;
 
@@ -34,6 +42,8 @@ public class PlayerSearchPage extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        currentUser = rJson.getCurrentUser(this);
 
         etPlayerSearch = findViewById(R.id.etPlayerSearch);
         lvPlayerList = findViewById(R.id.lvPlayerList);
@@ -48,16 +58,18 @@ public class PlayerSearchPage extends AppCompatActivity {
         });
     }
 
+    // Method for searching players from the API
     public void searchPlayers(View v) {
         if (etPlayerSearch.getText() != null) {
-            playerList = json.playerSearch(etPlayerSearch.getText().toString(), "lookup");
-            if (playerList.size() != 1) {
-                playerList.addAll(json.playerSearch(etPlayerSearch.getText().toString(), "name"));
+            playerList = rJson.playerSearch(etPlayerSearch.getText().toString(), "lookup");
+            if (playerList.size() == 0) {
+                playerList.addAll(rJson.playerSearch(etPlayerSearch.getText().toString(), "name"));
             }
             setPlayerList();
         }
     }
 
+    // Method for displaying the search results in a ListView
     private void setPlayerList(){
         if (playerList != null) {
             PlayerListAdapter adapter = new PlayerListAdapter(this, R.layout.player_list_view, playerList);
@@ -65,6 +77,7 @@ public class PlayerSearchPage extends AppCompatActivity {
         }
     }
 
+    // This method makes the keyboard disappear when clicking outside of it
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -85,6 +98,13 @@ public class PlayerSearchPage extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem login = menu.findItem(R.id.login);
+        if (currentUser != null) {
+            login.setTitle(currentUser.getUsername());
+        }
+        else {
+            login.setTitle("LOGIN");
+        }
         return super.onCreateOptionsMenu(menu);
     }
 

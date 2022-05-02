@@ -1,3 +1,9 @@
+/* LevelListAdapter.java
+
+This code file is for displaying levels in a ListView in a desired way (extending ArrayAdapter)
+
+*/
+
 package com.example.harkkatyo;
 
 import android.content.Context;

@@ -1,3 +1,9 @@
+/* Game.java
+
+This code file defines the Game class
+
+*/
+
 package com.example.harkkatyo;
 
 import java.util.ArrayList;

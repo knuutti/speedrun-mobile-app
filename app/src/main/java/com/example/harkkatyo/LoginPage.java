@@ -1,3 +1,9 @@
+/* LoginPage.java
+
+This code file defines the functionality of the login page
+
+*/
+
 package com.example.harkkatyo;
 
 import android.content.Context;
@@ -40,9 +46,10 @@ public class LoginPage extends AppCompatActivity {
     private EditText passwordLogin;
     private EditText passwordSignUp;
     private TextView falseLogin;
-
+    private Button logout;
     private TextView falseSignup;
 
+    private User currentUser;
 
     private String usernameInput;
     private String passwordInput;
@@ -55,23 +62,31 @@ public class LoginPage extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        currentUser = rJson.getCurrentUser(this);
+
 
         usernameLogin = findViewById(R.id.et_login_username_login_page);
         usernameSignUp = findViewById(R.id.et_signup_username_login_page);
         passwordLogin = findViewById(R.id.et_login_password_login_page);
         passwordSignUp = findViewById(R.id.et_signup_password_login_page);
         falseLogin = findViewById(R.id.tv_false_login_page);
-
+        logout = findViewById(R.id.btn_logout_login_page);
         falseSignup = findViewById(R.id.tv_false_signup_page);
 
 
         falseSignup.setVisibility(View.GONE);
         falseLogin.setVisibility(View.GONE);
 
+        // If no user is logged in, logout button is invisible
+        if (currentUser == null) {
+            logout.setVisibility(View.GONE);
+        }
+
 
 
     }
 
+    // This method makes the keyboard disappear if clicked elsewhere
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -89,12 +104,21 @@ public class LoginPage extends AppCompatActivity {
         return super.dispatchTouchEvent( event );
     }
 
+    // Method for loading the menu bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem login = menu.findItem(R.id.login);
+        if (currentUser != null) {
+            login.setTitle(currentUser.getUsername());
+        }
+        else {
+            login.setTitle("LOGIN");
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
+    // Method for defining the menu functionality
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -115,9 +139,11 @@ public class LoginPage extends AppCompatActivity {
         }
     }
 
+    // Method for logging in
     public void login (View v) {
         usernameInput = usernameLogin.getText().toString();
         passwordInput = passwordLogin.getText().toString();
+        int loginSuccessful = 0;
 
         ArrayList<User> userArrayList = rJson.getUserList(this.getApplicationContext());
         for (User user : userArrayList) {
@@ -134,12 +160,19 @@ public class LoginPage extends AppCompatActivity {
 
                 Intent intent = new Intent(LoginPage.this, MainActivity.class);
                 startActivity(intent);
+                loginSuccessful = 1;
             }
         }
-        falseLogin.setVisibility(View.VISIBLE);
+        if (loginSuccessful == 0) {
+            falseLogin.setVisibility(View.VISIBLE);
+        }
+        else {
+            falseLogin.setVisibility(View.GONE);
+        }
 
     }
 
+    // Method for logging out
     public void logout (View v) {
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(this.openFileOutput("current_user.txt", Context.MODE_PRIVATE));
@@ -154,6 +187,7 @@ public class LoginPage extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // Method for making a user
     public void signUp (View v) {
         usernameInput = usernameSignUp.getText().toString();
         passwordInput = passwordSignUp.getText().toString();
@@ -217,7 +251,7 @@ public class LoginPage extends AppCompatActivity {
 
     }
 
-    // Checking if username is taken
+    // Following five methods check if certain requirements are met for creating a user
     private int checkUsername(String str) {
         int value = 1;
         ArrayList<User> userArrayList = rJson.getUserList(this.getApplicationContext());
@@ -230,7 +264,6 @@ public class LoginPage extends AppCompatActivity {
         return value;
     }
 
-    // Checking if password has a spec. character
     private int checkSpecialChar(String str) {
         int value = 0;
         char[] specialCharacter = {' ', '!', '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',',

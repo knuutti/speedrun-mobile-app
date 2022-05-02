@@ -1,3 +1,9 @@
+/* Category.java
+
+This code file defines the Category class
+
+*/
+
 package com.example.harkkatyo;
 
 public class Category {

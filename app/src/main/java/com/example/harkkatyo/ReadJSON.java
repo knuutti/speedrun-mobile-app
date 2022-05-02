@@ -1,3 +1,9 @@
+/* ReadJSON.java
+
+This code file defines methods for reading JSON data from the API
+
+*/
+
 package com.example.harkkatyo;
 
 import android.content.Context;
@@ -104,7 +110,6 @@ public class ReadJSON {
     }
 
     // Function for searching players by the search words user gives
-
     public ArrayList<Player> playerSearch(String searchPlayer, String param) {
         String country = "";
         ArrayList<Player> playerList = new ArrayList<>();
@@ -143,6 +148,7 @@ public class ReadJSON {
         return playerList;
     }
 
+    // Function for getting all of the runs of the leaderboard
     public ArrayList<Run> getLeaderboardData(String uri){
 
         String leaderboardJSON = JsonToString("https://www.speedrun.com/api/v1/leaderboards/" + uri + "?embed=players,game");
@@ -253,7 +259,7 @@ public class ReadJSON {
         return leaderboard;
     }
 
-    // Function for getting required date for a game based on it's ID
+    // Function for getting required date for a game based on it's game ID
     public Game getGameData(String gameId) {
         String gameJSON = JsonToString("https://www.speedrun.com/api/v1/games/" + gameId + "?embed=categories,levels,platforms,developers,publishers");
 
@@ -332,7 +338,7 @@ public class ReadJSON {
         return game;
     }
 
-
+    // Function for getting the data of spesific player based on their player ID
     public Player getPlayerData(String playerId) {
         String playerJSON = JsonToString("https://www.speedrun.com/api/v1/users/" + playerId);
         String playerName = null;
@@ -395,6 +401,7 @@ public class ReadJSON {
         return player;
     }
 
+    // Function for getting the data of currently logged user
     public User getCurrentUser(Context context) {
         ArrayList<User> userArrayList = getUserList(context);
         String userName = null;
@@ -421,6 +428,7 @@ public class ReadJSON {
 
     }
 
+    // Function for getting all of the users
     public ArrayList<User> getUserList(Context applicationContext){
         ArrayList<User> userArrayList = new ArrayList<>();
 

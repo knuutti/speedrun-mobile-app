@@ -1,3 +1,9 @@
+/* MainActivity.java
+
+This code file defines the functionality of the main page (default page when booting the app)
+
+*/
+
 package com.example.harkkatyo;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
 
         setUserData();
         currentUser = rJson.getCurrentUser(this);
+        setFollowedGamesAndPlayers();
+
+    }
+
+    // Method for setting the followed players and games if logged user has any
+    public void setFollowedGamesAndPlayers() {
         if (currentUser != null) {
             ArrayList<Game> followedGames = new ArrayList<>();
             for (Game game : currentUser.getFollowedGames()) {
@@ -83,14 +95,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Checks if there is a file for user data, creates one if needed
     public void setUserData(){
         File userDataFile = new File(getApplicationContext().getFilesDir(), "user_data.json");
 
-        if (userDataFile.exists()) {
-            System.out.println("User data loaded");
-        }
-        else {
-            System.out.println("No user data, creating a file");
+        if (userDataFile.exists() == false) {
             ArrayList<User> users = new ArrayList<>();
 
             try {
@@ -108,10 +117,10 @@ public class MainActivity extends AppCompatActivity {
             catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
+    // Method for loading the menu bar (same for every page)
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -125,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    // Method for defining the functionality of the menu bar (same for every page)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -145,17 +155,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Method for loading the game search page (button)
     public void goToGameSearchPage(View v) {
         Intent intent = new Intent(MainActivity.this, GameSearchPage.class);
         startActivity(intent);
     }
 
+    // Method for loading the player search page (button)
     public void goToPlayerSearchPage(View v) {
         Intent intent = new Intent(MainActivity.this, PlayerSearchPage.class);
         startActivity(intent);
     }
 
-   public void imageWeb(View v) {
+    // Method for loading the official website on a web browser (button)
+    public void imageWeb(View v) {
        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.speedrun.com"));
        startActivity(browserIntent);
     }

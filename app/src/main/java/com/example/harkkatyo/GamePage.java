@@ -1,3 +1,9 @@
+/* GamePage.java
+
+This code file defines the functionality of the game page
+
+*/
+
 package com.example.harkkatyo;
 
 import android.content.Intent;
@@ -114,6 +120,7 @@ public class GamePage extends AppCompatActivity {
         }
     }
 
+    // Method for loading categories and levels to the listview components
     private void setListViews(){
         lvCategoryList = findViewById(R.id.lv_category_list_game_page);
         lvLevelList = findViewById(R.id.lv_level_list_game_page);
@@ -152,6 +159,7 @@ public class GamePage extends AppCompatActivity {
         });
     }
 
+    // Method for following a game
     public void followGame(View v) throws IOException {
         user.addFollowedGame(game);
         ArrayList<User> userArrayList = rJson.getUserList(this);
@@ -167,6 +175,7 @@ public class GamePage extends AppCompatActivity {
         ivFollowIcon.setVisibility(View.GONE);
     }
 
+    // Method for unfollowing a game
     public void unFollowGame(View v) throws IOException {
         ArrayList<Game> userFollowedGames = user.getFollowedGames();
         for (int i = 0 ; i < userFollowedGames.size() ; i++) {
@@ -188,12 +197,21 @@ public class GamePage extends AppCompatActivity {
         ivFollowIcon.setVisibility(View.VISIBLE);
     }
 
+    // Method for loading the menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem login = menu.findItem(R.id.login);
+        if (user != null) {
+            login.setTitle(user.getUsername());
+        }
+        else {
+            login.setTitle("LOGIN");
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
+    // Method for defining the menu functionality
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -214,6 +232,7 @@ public class GamePage extends AppCompatActivity {
         }
     }
 
+    // Method for setting tabs for Categories/Levels
     private void setTypeTabs() {
         tlType = findViewById(R.id.tlType);
 

@@ -1,3 +1,9 @@
+/* WriteJSON.java
+
+This code file defines methods for writing JSON styled data to file
+
+*/
+
 package com.example.harkkatyo;
 
 import android.content.Context;
@@ -30,22 +36,20 @@ public class WriteJSON {
         return writeJSON;
     }
 
+    // Method for storing users and their data to a JSON formed file
     public void writeJsonStream(Context context, ArrayList<User> users) throws IOException {
         File file = new File(context.getFilesDir(), "user_data.json");
         JsonWriter writer = new JsonWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
         writer.setIndent("  ");
-        writeUsersArray(writer, users);
-        writer.close();
-    }
-
-    public void writeUsersArray(JsonWriter writer, ArrayList<User> users) throws IOException {
         writer.beginArray();
         for (User user : users) {
             writeUser(writer, user);
         }
         writer.endArray();
+        writer.close();
     }
 
+    // Method for storing a user to the JSON formed user data file
     public void writeUser(JsonWriter writer, User user) throws IOException {
         writer.beginObject();
         writer.name("username").value(user.getUsername());
@@ -65,6 +69,7 @@ public class WriteJSON {
         writer.endObject();
     }
 
+    // Method for storing followed games to JSON file
     public void writeGameArray(JsonWriter writer, ArrayList<Game> games) throws IOException {
         writer.beginArray();
         for (Game game : games) {
@@ -73,6 +78,7 @@ public class WriteJSON {
         writer.endArray();
     }
 
+    // Method for storing followed players to JSON file
     public void writePlayersArray(JsonWriter writer, ArrayList<Player> players) throws IOException {
         writer.beginArray();
         for (Player player : players) {

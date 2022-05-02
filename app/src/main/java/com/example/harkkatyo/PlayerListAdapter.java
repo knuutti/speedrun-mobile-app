@@ -1,3 +1,9 @@
+/* PlayerListAdapter.java
+
+This code file is for displaying players in a ListView in a desired way (extending ArrayAdapter)
+
+*/
+
 package com.example.harkkatyo;
 
 import android.content.Context;

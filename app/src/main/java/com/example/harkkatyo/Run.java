@@ -1,3 +1,9 @@
+/* Run.java
+
+This code file defines the Run class
+
+*/
+
 package com.example.harkkatyo;
 
 import java.util.regex.Pattern;
@@ -23,6 +29,7 @@ public class Run {
 
     // METHODS
 
+    // Method for converting time to displayable form
     public String getTimeFormat(String timeString) {
         String time = null;
         try {

@@ -178,7 +178,7 @@
 
 
     <Button
-        android:id="@+id/btn_signup_login_page2"
+        android:id="@+id/btn_logout_login_page"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 

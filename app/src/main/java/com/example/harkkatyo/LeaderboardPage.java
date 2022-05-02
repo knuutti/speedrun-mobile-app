@@ -1,3 +1,9 @@
+/* LeaderboardPage.java
+
+This code file defines the functionality of the leaderboard page
+
+*/
+
 package com.example.harkkatyo;
 
 import android.content.Intent;
@@ -17,6 +23,8 @@ public class LeaderboardPage extends AppCompatActivity {
 
     private ListView lvLeaderboard;
 
+    private User currentUser;
+
     private ArrayList<Run> runs = new ArrayList<>();
 
     @Override
@@ -26,6 +34,8 @@ public class LeaderboardPage extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        currentUser = json.getCurrentUser(this);
 
         Intent intent = getIntent();
         String uri = intent.getStringExtra("uri");
@@ -41,12 +51,21 @@ public class LeaderboardPage extends AppCompatActivity {
 
     }
 
+    // Method for loading the menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem login = menu.findItem(R.id.login);
+        if (currentUser != null) {
+            login.setTitle(currentUser.getUsername());
+        }
+        else {
+            login.setTitle("LOGIN");
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
+    // Method for defining the menu functionality
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

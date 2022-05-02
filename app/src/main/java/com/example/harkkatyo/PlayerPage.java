@@ -1,3 +1,9 @@
+/* PlayerPage.java
+
+This code file defines the functionality of the player page
+
+*/
+
 package com.example.harkkatyo;
 
 import android.content.Intent;
@@ -58,10 +64,21 @@ public class PlayerPage extends AppCompatActivity {
         ivFollowIcon = findViewById(R.id.iv_followed_player_page);
         ivUnFollowIcon = findViewById(R.id.iv_unfollowed_player_page);
 
+        // Condition for checking which follow image to show
         if (user == null) {
             ivFollowIcon.setVisibility(View.GONE);
         }
+        else {
+            ArrayList<Player> followedPlayers = user.getFollowedPlayers();
+            for (Player followedPlayer : followedPlayers) {
+                if (followedPlayer.getPlayerId().compareTo(player.getPlayerId()) == 0) {
+                    ivFollowIcon.setVisibility(View.GONE);
+                    ivUnFollowIcon.setVisibility(View.VISIBLE);
+                }
+            }
+        }
 
+        // Displaying the player name correctly
         tvPlayerName.setText(player.getPlayerName());
         tvPlayerName.setTextColor(Color.parseColor(player.getColorStart()));
         Shader textShader = new LinearGradient(0, 0, tvPlayerName.getPaint().measureText(tvPlayerName.getText().toString()), tvPlayerName.getTextSize(),
@@ -80,7 +97,7 @@ public class PlayerPage extends AppCompatActivity {
         tvWebLink.setText("View profile on the official website");
         tvLocation.setText(player.getCountryName());
 
-
+        // Loads profile picture if the player has one
         Glide.with(this)
                 .load("https://www.speedrun.com/userasset/" + playerId + "/image?v=50b337a")
                 .override(300, 200)
@@ -88,6 +105,7 @@ public class PlayerPage extends AppCompatActivity {
 
     }
 
+    // The following three methods open certain links in the web browser (activated by clicking)
     public void openTwitchLink(View v) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(player.getTwitchAcc()));
         startActivity(browserIntent);
@@ -103,6 +121,7 @@ public class PlayerPage extends AppCompatActivity {
         startActivity(browserIntent);
     }
 
+    // Method for following the selected player
     public void followPlayer(View v) throws IOException {
         user.addFollowedPlayer(player);
         ArrayList<User> userArrayList = rJson.getUserList(this);
@@ -118,6 +137,7 @@ public class PlayerPage extends AppCompatActivity {
         ivFollowIcon.setVisibility(View.GONE);
     }
 
+    // Method for unfollowing a player
     public void unFollowPlayer(View v) throws IOException {
         ArrayList<Player> userFollowedPlayers = user.getFollowedPlayers();
         for (int i = 0 ; i < userFollowedPlayers.size() ; i++) {
@@ -142,6 +162,13 @@ public class PlayerPage extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem login = menu.findItem(R.id.login);
+        if (user != null) {
+            login.setTitle(user.getUsername());
+        }
+        else {
+            login.setTitle("LOGIN");
+        }
         return super.onCreateOptionsMenu(menu);
     }
 

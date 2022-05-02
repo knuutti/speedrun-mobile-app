@@ -1,3 +1,9 @@
+/* Level.java
+
+This code file defines the Level class
+
+*/
+
 package com.example.harkkatyo;
 
 public class Level {

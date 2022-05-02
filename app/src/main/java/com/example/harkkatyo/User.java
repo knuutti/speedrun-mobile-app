@@ -1,6 +1,10 @@
-package com.example.harkkatyo;
+/* User.java
 
-import android.content.Context;
+This code file defines the User class
+
+*/
+
+package com.example.harkkatyo;
 
 import java.util.ArrayList;
 

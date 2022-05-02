@@ -1,3 +1,9 @@
+/* GameSearchPage.java
+
+This code file defines the functionality of the search page for games
+
+*/
+
 package com.example.harkkatyo;
 
 import android.content.Context;
@@ -27,6 +33,8 @@ public class GameSearchPage extends AppCompatActivity {
     private ListView lvGameList;
     private Switch sUnofficialReleases;
 
+    private User currentUser;
+
     private ArrayList<Game> gameList;
 
     @Override
@@ -36,6 +44,8 @@ public class GameSearchPage extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        currentUser = rJson.getCurrentUser(this);
 
         etGameSearch = findViewById(R.id.etGameSearch);
         lvGameList = findViewById(R.id.lvGameList);
@@ -90,12 +100,21 @@ public class GameSearchPage extends AppCompatActivity {
         return super.dispatchTouchEvent( event );
     }
 
+    // Method for loading the menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem login = menu.findItem(R.id.login);
+        if (currentUser != null) {
+            login.setTitle(currentUser.getUsername());
+        }
+        else {
+            login.setTitle("LOGIN");
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
+    // Method for defining the menu functionality
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

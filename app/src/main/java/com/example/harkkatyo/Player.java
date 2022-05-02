@@ -1,3 +1,9 @@
+/* Player.java
+
+This code file defines the Player class
+
+*/
+
 package com.example.harkkatyo;
 
 import java.util.ArrayList;

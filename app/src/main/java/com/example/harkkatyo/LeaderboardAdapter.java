@@ -1,3 +1,9 @@
+/* LeaderboardAdapter.java
+
+This code file is for displaying the leaderboard aka. displaying runs in a ListView
+
+*/
+
 package com.example.harkkatyo;
 
 import android.content.Context;
